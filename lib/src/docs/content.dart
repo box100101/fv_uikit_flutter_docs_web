@@ -14,6 +14,7 @@ const List<String> publicWidgetNames = [
   'AppCheckbox',
   'AppDateTimeField',
   'AppDropdown',
+  'AppBottomSheetSelect',
   'AppPasswordField',
   'AppOtpField',
   'AppSearchField',
@@ -254,6 +255,15 @@ final List<NavGroup> navGroups = [
         icon: Icons.arrow_drop_down_circle_outlined,
         title: _t('AppDropdown', 'AppDropdown'),
         description: _t('Selectable lists with search and async states.', 'Danh sách chọn với search và trạng thái async.'),
+      ),
+      NavItem(
+        route: '/widgets/app-bottom-sheet-select',
+        icon: Icons.list_alt_outlined,
+        title: _t('AppBottomSheetSelect', 'AppBottomSheetSelect'),
+        description: _t(
+          'Field-style selection powered by AppBottomSheet, with single and multi choice flows.',
+          'Field chọn dùng AppBottomSheet, hỗ trợ single và multi choice.',
+        ),
       ),
       NavItem(
         route: '/widgets/app-checkbox',
@@ -841,6 +851,33 @@ final Map<String, WidgetDocEntry> widgetDocsBySlug = {
       _prop('isDisabled', 'bool', 'false', 'Fully disables the dropdown trigger.', 'Tắt hoàn toàn trigger của dropdown.'),
     ],
     examples: buildDropdownExamples(),
+  ),
+  'app-bottom-sheet-select': WidgetDocEntry(
+    slug: 'app-bottom-sheet-select',
+    widgetName: 'AppBottomSheetSelect',
+    title: _t('AppBottomSheetSelect', 'AppBottomSheetSelect'),
+    summary: _t(
+      'Use AppBottomSheetSelect when the trigger should remain a field but the choices need to open inside AppBottomSheet, including search, pagination, and multi-select flows.',
+      'Dùng AppBottomSheetSelect khi trigger nên giữ dạng field nhưng danh sách chọn cần mở trong AppBottomSheet, gồm cả search, phân trang và multi-select.',
+    ),
+    quickStart: _t(
+      "AppBottomSheetSelect<String>.single(\n  labelText: 'Tax method',\n  hintText: 'Choose tax method',\n  items: methods,\n  value: selectedMethod,\n  itemAsString: (item) => item,\n  onChanged: (next) {},\n)",
+      "AppBottomSheetSelect<String>.single(\n  labelText: 'Phương pháp tính thuế',\n  hintText: 'Chọn phương pháp tính thuế',\n  items: methods,\n  value: selectedMethod,\n  itemAsString: (item) => item,\n  onChanged: (next) {},\n)",
+    ),
+    props: [
+      _prop('single / multi', 'Named constructors', '-', 'Use `.single` for one selected value and `.multi` for multiple selected values.', 'Dùng `.single` cho một giá trị và `.multi` cho nhiều giá trị.'),
+      _prop('items', 'List<T>', '-', 'Selectable options shown inside the bottom sheet.', 'Danh sách lựa chọn hiển thị trong bottom sheet.', required: true),
+      _prop('value / values', 'T? / List<T>', '-', 'Controlled selection for single or multi mode.', 'Giá trị controlled cho single hoặc multi mode.'),
+      _prop('itemAsString', 'String Function(T)', '-', 'Maps an option to the display label.', 'Chuyển option thành text hiển thị.', required: true),
+      _prop('itemDescriptionAsString', 'String? Function(T)?', '-', 'Optional secondary line inside each option tile.', 'Dòng mô tả phụ tùy chọn trong từng item.'),
+      _prop('selectedItemsTextBuilder', 'String Function(List<T>)?', '-', 'Custom formatter for the collapsed multi-select text.', 'Formatter tùy biến cho text thu gọn của multi-select.'),
+      _prop('isSearchable / enableLocalFilter', 'bool', 'false / true', 'Enables local search or remote search callbacks.', 'Bật local search hoặc remote search callback.'),
+      _prop('isLoading / sheetErrorText / onRetry', 'bool / String? / VoidCallback?', '-', 'Controls sheet loading, empty, and retry states.', 'Điều khiển trạng thái loading, empty và retry trong sheet.'),
+      _prop('hasMore / isLoadingMore / onLoadMore', 'bool / bool / VoidCallback?', '-', 'Supports infinite scroll for remote data.', 'Hỗ trợ phân trang vô hạn cho dữ liệu remote.'),
+      _prop('sheetTitle / sheetDescription', 'String?', '-', 'Customizes the AppBottomSheet header.', 'Tùy biến phần header của AppBottomSheet.'),
+      _prop('cancelButtonText / applyButtonText', 'String', 'Cancel / Apply', 'Overrides the footer action labels in multi-select mode.', 'Ghi đè nhãn action footer trong chế độ multi-select.'),
+    ],
+    examples: buildBottomSheetSelectExamples(),
   ),
   'app-alert': WidgetDocEntry(
     slug: 'app-alert',

@@ -54,6 +54,19 @@ void main() {
     expect(find.text('Choose warehouse'), findsOneWidget);
   });
 
+  testWidgets('direct route renders bottom sheet select docs page', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const DocsApp(initialRoute: '/widgets/app-bottom-sheet-select'),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(find.text('AppBottomSheetSelect'), findsWidgets);
+    expect(find.text('Search warehouse'), findsOneWidget);
+  });
+
   testWidgets('button live example updates state', (tester) async {
     await tester.pumpWidget(const DocsApp(initialRoute: '/widgets/app-button'));
     await tester.pump(const Duration(milliseconds: 250));

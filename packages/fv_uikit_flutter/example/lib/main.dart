@@ -51,6 +51,8 @@ class _MyAppState extends State<MyApp> {
           '/labels_screen': (context) => const LabelsScreen(),
           '/alerts_screen': (context) => const AlertsScreen(),
           '/bottom_sheets_screen': (context) => const BottomSheetsScreen(),
+          '/bottom_sheet_selects_screen':
+              (context) => const BottomSheetSelectsScreen(),
           '/text_fields_screen': (context) => TextFieldsScreen(),
           '/otp_fields_screen': (context) => const OtpFieldsScreen(),
           '/date_time_fields_screen': (context) => const DateTimeFieldsScreen(),

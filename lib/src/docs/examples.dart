@@ -1182,6 +1182,217 @@ class _DropdownAsyncExampleState extends State<_DropdownAsyncExample> {
   }
 }
 
+List<ExampleDocEntry> buildBottomSheetSelectExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Single choice field', vi: 'Field chọn một giá trị'),
+      description: LocalizedText(
+        en: 'Keep the compact field trigger while opening choices in a bottom sheet.',
+        vi: 'Giữ trigger gọn dạng field nhưng mở danh sách chọn trong bottom sheet.',
+      ),
+      code:
+          "AppBottomSheetSelect<String>.single(\n"
+          "  labelText: 'Tax method',\n"
+          "  hintText: 'Choose tax method',\n"
+          "  items: methods,\n"
+          "  value: selectedMethod,\n"
+          "  itemAsString: (item) => item,\n"
+          "  onChanged: (next) {},\n"
+          "  isSearchable: true,\n"
+          ")",
+      builder: _buildBottomSheetSelectSingleExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Multi choice and remote states', vi: 'Multi choice và trạng thái remote'),
+      description: LocalizedText(
+        en: 'Combine multi-select summaries with remote search and incremental loading.',
+        vi: 'Kết hợp tóm tắt multi-select với remote search và nạp thêm dữ liệu.',
+      ),
+      code:
+          "AppBottomSheetSelect<String>.multi(\n"
+          "  labelText: 'Labels',\n"
+          "  hintText: 'Choose labels',\n"
+          "  items: labels,\n"
+          "  values: selectedLabels,\n"
+          "  itemAsString: (item) => item,\n"
+          "  onChanged: (values) {},\n"
+          ")",
+      builder: _buildBottomSheetSelectAdvancedExample,
+    ),
+  ];
+}
+
+class _BottomSheetSelectSingleExample extends StatefulWidget {
+  const _BottomSheetSelectSingleExample();
+
+  @override
+  State<_BottomSheetSelectSingleExample> createState() =>
+      _BottomSheetSelectSingleExampleState();
+}
+
+Widget _buildBottomSheetSelectSingleExample(BuildContext context) =>
+    const _BottomSheetSelectSingleExample();
+
+class _BottomSheetSelectSingleExampleState
+    extends State<_BottomSheetSelectSingleExample> {
+  final List<String> _methods = const ['Direct', 'Deduction', 'Mixed'];
+  String? _selectedMethod = 'Direct';
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBottomSheetSelect<String>.single(
+      labelText: 'Tax method',
+      hintText: 'Choose tax method',
+      helperText: 'Useful when options need more room than a dropdown menu.',
+      items: _methods,
+      value: _selectedMethod,
+      itemAsString: (item) => item,
+      onChanged: (next) => setState(() => _selectedMethod = next),
+      isSearchable: true,
+      sheetTitle: 'Tax method',
+      sheetDescription: 'Choose how the document calculates tax.',
+    );
+  }
+}
+
+class _BottomSheetSelectAdvancedExample extends StatefulWidget {
+  const _BottomSheetSelectAdvancedExample();
+
+  @override
+  State<_BottomSheetSelectAdvancedExample> createState() =>
+      _BottomSheetSelectAdvancedExampleState();
+}
+
+Widget _buildBottomSheetSelectAdvancedExample(BuildContext context) =>
+    const _BottomSheetSelectAdvancedExample();
+
+class _BottomSheetSelectAdvancedExampleState
+    extends State<_BottomSheetSelectAdvancedExample> {
+  static const _pageSize = 8;
+
+  final List<String> _labels = const ['Urgent', 'VIP', 'Wholesale', 'Online'];
+  final List<_RemoteWarehouse> _allWarehouses = List.generate(
+    24,
+    (index) => _RemoteWarehouse(
+      id: index + 1,
+      title: 'Warehouse ${index + 1}',
+      description: 'Service area ${index % 4 + 1}',
+    ),
+  );
+
+  List<String> _selectedLabels = const ['VIP'];
+  _RemoteWarehouse? _selectedWarehouse;
+  List<_RemoteWarehouse> _visibleWarehouses = <_RemoteWarehouse>[];
+  bool _isLoadingWarehouses = false;
+  bool _isLoadingMoreWarehouses = false;
+  bool _hasMoreWarehouses = true;
+  String _lastKeyword = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _searchWarehouses('');
+  }
+
+  Future<void> _searchWarehouses(String keyword, {bool loadMore = false}) async {
+    final normalizedKeyword = keyword.trim().toLowerCase();
+
+    setState(() {
+      _lastKeyword = keyword;
+      if (loadMore) {
+        _isLoadingMoreWarehouses = true;
+      } else {
+        _isLoadingWarehouses = true;
+      }
+    });
+
+    await Future<void>.delayed(const Duration(milliseconds: 350));
+
+    final filtered = _allWarehouses.where((warehouse) {
+      return warehouse.title.toLowerCase().contains(normalizedKeyword) ||
+          warehouse.description.toLowerCase().contains(normalizedKeyword);
+    }).toList();
+
+    final nextCount = loadMore
+        ? (_visibleWarehouses.length + _pageSize).clamp(0, filtered.length)
+        : _pageSize.clamp(0, filtered.length);
+
+    if (!mounted) return;
+
+    setState(() {
+      _visibleWarehouses = filtered.take(nextCount).toList();
+      _isLoadingWarehouses = false;
+      _isLoadingMoreWarehouses = false;
+      _hasMoreWarehouses = nextCount < filtered.length;
+    });
+  }
+
+  String _selectedLabelsText(List<String> values) {
+    if (values.isEmpty) return '';
+    if (values.length <= 2) return values.join(', ');
+    return '${values.length} labels selected';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppBottomSheetSelect<String>.multi(
+          labelText: 'Labels',
+          hintText: 'Choose labels',
+          items: _labels,
+          values: _selectedLabels,
+          itemAsString: (item) => item,
+          selectedItemsTextBuilder: _selectedLabelsText,
+          onChanged: (values) => setState(() => _selectedLabels = values),
+          sheetTitle: 'Labels',
+        ),
+        const SizedBox(height: 12),
+        AppBottomSheetSelect<_RemoteWarehouse>.single(
+          labelText: 'Warehouse',
+          hintText: 'Search warehouse',
+          items: _visibleWarehouses,
+          value: _selectedWarehouse,
+          itemAsString: (item) => item.title,
+          itemDescriptionAsString: (item) => item.description,
+          onChanged: (value) => setState(() => _selectedWarehouse = value),
+          isSearchable: true,
+          enableLocalFilter: false,
+          isLoading: _isLoadingWarehouses,
+          isLoadingMore: _isLoadingMoreWarehouses,
+          hasMore: _hasMoreWarehouses,
+          onSearchChanged: (value) => _searchWarehouses(value),
+          onLoadMore: () => _searchWarehouses(_lastKeyword, loadMore: true),
+          onRetry: () => _searchWarehouses(_lastKeyword),
+          sheetTitle: 'Warehouse',
+          sheetDescription: 'Remote search and paginated results.',
+        ),
+      ],
+    );
+  }
+}
+
+class _RemoteWarehouse {
+  final int id;
+  final String title;
+  final String description;
+
+  const _RemoteWarehouse({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    return other is _RemoteWarehouse && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+}
+
 List<ExampleDocEntry> buildAlertExamples() {
   return const [
     ExampleDocEntry(

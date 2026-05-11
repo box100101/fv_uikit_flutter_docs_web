@@ -770,6 +770,15 @@ const List<_CatalogGroup> _catalogGroups = [
         icon: Icons.arrow_drop_down_circle_outlined,
       ),
       _CatalogItem(
+        title: DocsText(en: 'Bottom Sheet Select', vi: 'Bottom Sheet Select'),
+        description: DocsText(
+          en: 'Select field using AppBottomSheet with single or multi choice.',
+          vi: 'Field chọn dùng AppBottomSheet với single hoặc multi choice.',
+        ),
+        routeName: '/bottom_sheet_selects_screen',
+        icon: Icons.list_alt_outlined,
+      ),
+      _CatalogItem(
         title: DocsText(en: 'Checkbox', vi: 'Checkbox'),
         description: DocsText(
           en: 'Binary, tristate, boxed, and selectbox selection.',
@@ -1825,6 +1834,91 @@ final Map<String, WidgetDoc> _widgetDocs = {
         'false / -',
         'Supports paginated menus.',
         'Hỗ trợ menu phân trang.',
+      ),
+    ],
+  ),
+  'bottomSheetSelect': WidgetDoc(
+    title: const DocsText(
+      en: 'AppBottomSheetSelect',
+      vi: 'AppBottomSheetSelect',
+    ),
+    description: const DocsText(
+      en:
+          'Use AppBottomSheetSelect when the trigger should stay as a field but the option list needs to open inside AppBottomSheet, including remote search, pagination, and multi-choice flows.',
+      vi:
+          'Dùng AppBottomSheetSelect khi trigger nên giữ dạng field nhưng danh sách lựa chọn cần mở trong AppBottomSheet, gồm cả remote search, phân trang và multi-choice.',
+    ),
+    quickUse: const DocsText(
+      en:
+          "AppBottomSheetSelect<String>.single(\n  labelText: 'Tax method',\n  hintText: 'Choose tax method',\n  items: methods,\n  value: selectedMethod,\n  itemAsString: (item) => item,\n  onChanged: (next) => setState(() => selectedMethod = next),\n  isSearchable: true,\n)",
+      vi:
+          "AppBottomSheetSelect<String>.single(\n  labelText: 'Phương pháp tính thuế',\n  hintText: 'Chọn phương pháp tính thuế',\n  items: methods,\n  value: selectedMethod,\n  itemAsString: (item) => item,\n  onChanged: (next) => setState(() => selectedMethod = next),\n  isSearchable: true,\n)",
+    ),
+    props: [
+      prop(
+        'single / multi',
+        'Named constructors',
+        '-',
+        'Use .single for one selected value and .multi for multiple selected values.',
+        'Dùng .single cho một giá trị và .multi cho nhiều giá trị.',
+      ),
+      prop(
+        'items',
+        'List<T>',
+        '-',
+        'Selectable options shown inside the bottom sheet.',
+        'Danh sách lựa chọn hiển thị trong bottom sheet.',
+        required: true,
+      ),
+      prop(
+        'value / values',
+        'T? / List<T>',
+        '-',
+        'Controlled selection for single or multi mode.',
+        'Giá trị controlled cho single hoặc multi mode.',
+      ),
+      prop(
+        'itemAsString',
+        'String Function(T)',
+        '-',
+        'Maps an option to the display label.',
+        'Chuyển option thành text hiển thị.',
+        required: true,
+      ),
+      prop(
+        'itemDescriptionAsString',
+        'String? Function(T)?',
+        '-',
+        'Optional secondary line inside each option tile.',
+        'Dòng mô tả phụ tùy chọn trong từng item.',
+      ),
+      prop(
+        'isSearchable / enableLocalFilter',
+        'bool',
+        'false / true',
+        'Enables local search or remote search callbacks.',
+        'Bật local search hoặc remote search callback.',
+      ),
+      prop(
+        'isLoading / sheetErrorText / onRetry',
+        'bool / String? / VoidCallback?',
+        '-',
+        'Controls sheet loading and retry states.',
+        'Điều khiển trạng thái loading và retry trong sheet.',
+      ),
+      prop(
+        'hasMore / isLoadingMore / onLoadMore',
+        'bool / bool / VoidCallback?',
+        '-',
+        'Supports infinite scroll for remote data.',
+        'Hỗ trợ phân trang vô hạn cho dữ liệu remote.',
+      ),
+      prop(
+        'sheetTitle / sheetDescription',
+        'String?',
+        '-',
+        'Customizes the AppBottomSheet header.',
+        'Tùy biến phần header của AppBottomSheet.',
       ),
     ],
   ),
