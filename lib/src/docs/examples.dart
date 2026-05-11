@@ -40,6 +40,28 @@ List<ExampleDocEntry> buildTextExamples() {
           ")",
       builder: _buildTextOverflowExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Receipt summary block',
+        vi: 'Khối tóm tắt hóa đơn',
+      ),
+      description: LocalizedText(
+        en: 'Combine heading, metadata, and emphasis text to structure transactional content.',
+        vi: 'Kết hợp heading, metadata và text nhấn mạnh để tổ chức nội dung giao dịch.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: const [\n"
+          "    AppText(text: 'Order #FV-1024', size: AppTextSize.heading4Bold),\n"
+          "    SizedBox(height: 8),\n"
+          "    AppText(text: 'Paid via bank transfer', size: AppTextSize.bodySRegular, color: ColorTokens.textDescription),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppText(text: '2,480,000 VND', size: AppTextSize.bodyXLBold, color: ColorTokens.successDefault),\n"
+          "  ],\n"
+          ")",
+      builder: _buildTextReceiptExample,
+    ),
   ];
 }
 
@@ -69,6 +91,27 @@ Widget _buildTextOverflowExample(BuildContext context) {
   );
 }
 
+Widget _buildTextReceiptExample(BuildContext context) {
+  return const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      AppText(text: 'Order #FV-1024', size: AppTextSize.heading4Bold),
+      SizedBox(height: SpacingTokens.spaceS),
+      AppText(
+        text: 'Paid via bank transfer',
+        size: AppTextSize.bodySRegular,
+        color: ColorTokens.textDescription,
+      ),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppText(
+        text: '2,480,000 VND',
+        size: AppTextSize.bodyXLBold,
+        color: ColorTokens.successDefault,
+      ),
+    ],
+  );
+}
+
 List<ExampleDocEntry> buildLoadingExamples() {
   return const [
     ExampleDocEntry(
@@ -90,7 +133,10 @@ List<ExampleDocEntry> buildLoadingExamples() {
       builder: _buildLoadingSizesExample,
     ),
     ExampleDocEntry(
-      title: LocalizedText(en: 'Determinate progress', vi: 'Tiến trình xác định'),
+      title: LocalizedText(
+        en: 'Determinate progress',
+        vi: 'Tiến trình xác định',
+      ),
       description: LocalizedText(
         en: 'Set value when the progress percentage is known.',
         vi: 'Đặt value khi bạn biết phần trăm tiến trình.',
@@ -102,6 +148,26 @@ List<ExampleDocEntry> buildLoadingExamples() {
           "  color: ColorTokens.successDefault,\n"
           ")",
       builder: _buildLoadingDeterminateExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Inline async feedback',
+        vi: 'Phản hồi async trong dòng',
+      ),
+      description: LocalizedText(
+        en: 'Place the spinner next to copy when the action should not block the entire screen.',
+        vi: 'Đặt spinner cạnh nội dung khi action không nên chặn toàn bộ màn hình.',
+      ),
+      code:
+          "const Row(\n"
+          "  mainAxisSize: MainAxisSize.min,\n"
+          "  children: [\n"
+          "    AppLoadingSpinner(size: IconSizeTokens.iconSizeM),\n"
+          "    SizedBox(width: 8),\n"
+          "    AppText(text: 'Syncing product catalog...', size: AppTextSize.bodyMRegular),\n"
+          "  ],\n"
+          ")",
+      builder: _buildLoadingInlineExample,
     ),
   ];
 }
@@ -123,6 +189,20 @@ Widget _buildLoadingDeterminateExample(BuildContext context) {
     size: 40,
     value: 0.72,
     color: ColorTokens.successDefault,
+  );
+}
+
+Widget _buildLoadingInlineExample(BuildContext context) {
+  return const Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      AppLoadingSpinner(size: IconSizeTokens.iconSizeM),
+      SizedBox(width: SpacingTokens.spaceS),
+      AppText(
+        text: 'Syncing product catalog...',
+        size: AppTextSize.bodyMRegular,
+      ),
+    ],
   );
 }
 
@@ -148,7 +228,10 @@ List<ExampleDocEntry> buildSkeletonExamples() {
       builder: _buildSkeletonCardExample,
     ),
     ExampleDocEntry(
-      title: LocalizedText(en: 'Avatar and static mode', vi: 'Avatar và chế độ tĩnh'),
+      title: LocalizedText(
+        en: 'Avatar and static mode',
+        vi: 'Avatar và chế độ tĩnh',
+      ),
       description: LocalizedText(
         en: 'Circle shape works well for avatars and logos.',
         vi: 'Shape tròn phù hợp cho avatar và logo.',
@@ -162,6 +245,35 @@ List<ExampleDocEntry> buildSkeletonExamples() {
           "  ],\n"
           ")",
       builder: _buildSkeletonAvatarExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'List row placeholder',
+        vi: 'Placeholder cho dòng danh sách',
+      ),
+      description: LocalizedText(
+        en: 'Compose avatar, title, and trailing metadata placeholders to mimic dense list layouts.',
+        vi: 'Ghép avatar, tiêu đề và metadata để mô phỏng các layout danh sách dày thông tin.',
+      ),
+      code:
+          "const Row(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppSkeleton(width: 44, height: 44, shape: BoxShape.circle),\n"
+          "    SizedBox(width: 12),\n"
+          "    Expanded(\n"
+          "      child: Column(\n"
+          "        crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "        children: [\n"
+          "          AppSkeleton(width: 160, height: 16),\n"
+          "          SizedBox(height: 8),\n"
+          "          AppSkeleton(height: 12),\n"
+          "        ],\n"
+          "      ),\n"
+          "    ),\n"
+          "  ],\n"
+          ")",
+      builder: _buildSkeletonListRowExample,
     ),
   ];
 }
@@ -184,7 +296,34 @@ Widget _buildSkeletonAvatarExample(BuildContext context) {
     children: [
       AppSkeleton(width: 56, height: 56, shape: BoxShape.circle),
       SizedBox(width: 12),
-      AppSkeleton(width: 56, height: 56, shape: BoxShape.circle, isAnimated: false),
+      AppSkeleton(
+        width: 56,
+        height: 56,
+        shape: BoxShape.circle,
+        isAnimated: false,
+      ),
+    ],
+  );
+}
+
+Widget _buildSkeletonListRowExample(BuildContext context) {
+  return const Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      AppSkeleton(width: 44, height: 44, shape: BoxShape.circle),
+      SizedBox(width: SpacingTokens.spaceM),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppSkeleton(width: 160, height: 16),
+            SizedBox(height: SpacingTokens.spaceS),
+            AppSkeleton(height: 12),
+            SizedBox(height: SpacingTokens.spaceS),
+            AppSkeleton(width: 96, height: 12),
+          ],
+        ),
+      ),
     ],
   );
 }
@@ -192,7 +331,10 @@ Widget _buildSkeletonAvatarExample(BuildContext context) {
 List<ExampleDocEntry> buildDividerExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Semantic horizontal lines', vi: 'Divider ngang theo semantic'),
+      title: LocalizedText(
+        en: 'Semantic horizontal lines',
+        vi: 'Divider ngang theo semantic',
+      ),
       description: LocalizedText(
         en: 'Choose a variant to communicate section status.',
         vi: 'Chọn variant để truyền tải trạng thái của section.',
@@ -228,6 +370,28 @@ List<ExampleDocEntry> buildDividerExamples() {
           ")",
       builder: _buildDividerVerticalExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Sectioned card content',
+        vi: 'Nội dung card chia section',
+      ),
+      description: LocalizedText(
+        en: 'Dividers are especially useful when a card contains summary, details, and action areas.',
+        vi: 'Divider đặc biệt hữu ích khi một card có phần tóm tắt, chi tiết và action.',
+      ),
+      code:
+          "const Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppText(text: 'Shipment overview', size: AppTextSize.bodyLBold),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppDivider(),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppText(text: '3 packages ready to hand over', size: AppTextSize.bodyMRegular),\n"
+          "  ],\n"
+          ")",
+      builder: _buildDividerSectionExample,
+    ),
   ];
 }
 
@@ -250,10 +414,7 @@ Widget _buildDividerVerticalExample(BuildContext context) {
       children: [
         AppText(text: 'Left'),
         SizedBox(width: 12),
-        AppDivider(
-          orientation: AppDividerOrientation.vertical,
-          length: 40,
-        ),
+        AppDivider(orientation: AppDividerOrientation.vertical, length: 40),
         SizedBox(width: 12),
         AppText(text: 'Right'),
       ],
@@ -261,10 +422,37 @@ Widget _buildDividerVerticalExample(BuildContext context) {
   );
 }
 
+Widget _buildDividerSectionExample(BuildContext context) {
+  return const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      AppText(text: 'Shipment overview', size: AppTextSize.bodyLBold),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppDivider(),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppText(
+        text: '3 packages ready to hand over',
+        size: AppTextSize.bodyMRegular,
+      ),
+      SizedBox(height: SpacingTokens.spaceS),
+      AppDivider(variant: AppDividerVariant.info),
+      SizedBox(height: SpacingTokens.spaceS),
+      AppText(
+        text: 'Courier confirmation is still pending.',
+        size: AppTextSize.bodySRegular,
+        color: ColorTokens.textDescription,
+      ),
+    ],
+  );
+}
+
 List<ExampleDocEntry> buildLabelExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Required and optional states', vi: 'Trạng thái required và optional'),
+      title: LocalizedText(
+        en: 'Required and optional states',
+        vi: 'Trạng thái required và optional',
+      ),
       description: LocalizedText(
         en: 'Support forms that need more context than plain text labels.',
         vi: 'Phù hợp cho form cần nhiều ngữ cảnh hơn label text thường.',
@@ -294,6 +482,25 @@ List<ExampleDocEntry> buildLabelExamples() {
           ")",
       builder: _buildLabelInfoExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Form label stack', vi: 'Cụm label cho form'),
+      description: LocalizedText(
+        en: 'Use a consistent label tone across required, optional, and contextual fields in the same section.',
+        vi: 'Dùng cùng một tông label cho các field required, optional và field cần thêm ngữ cảnh trong cùng section.',
+      ),
+      code:
+          "const Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppLabel(text: 'Store name', isRequired: true),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppLabel(text: 'Tax code', isOptional: true),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppLabel(text: 'Support phone', showInfoIcon: true, tooltipMessage: 'Shown on receipts'),\n"
+          "  ],\n"
+          ")",
+      builder: _buildLabelStackExample,
+    ),
   ];
 }
 
@@ -313,6 +520,23 @@ Widget _buildLabelInfoExample(BuildContext context) {
     text: 'Phone number',
     showInfoIcon: true,
     tooltipMessage: 'Used for order confirmation calls',
+  );
+}
+
+Widget _buildLabelStackExample(BuildContext context) {
+  return const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      AppLabel(text: 'Store name', isRequired: true),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppLabel(text: 'Tax code', isOptional: true),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppLabel(
+        text: 'Support phone',
+        showInfoIcon: true,
+        tooltipMessage: 'Shown on receipts',
+      ),
+    ],
   );
 }
 
@@ -336,7 +560,10 @@ List<ExampleDocEntry> buildButtonExamples() {
       builder: _buildButtonVariantsExample,
     ),
     ExampleDocEntry(
-      title: LocalizedText(en: 'Interactive states', vi: 'Trạng thái tương tác'),
+      title: LocalizedText(
+        en: 'Interactive states',
+        vi: 'Trạng thái tương tác',
+      ),
       description: LocalizedText(
         en: 'Test loading, disabled, and live action callbacks.',
         vi: 'Thử loading, disabled và callback hành động thật.',
@@ -348,6 +575,32 @@ List<ExampleDocEntry> buildButtonExamples() {
           "  onPressed: () {},\n"
           ")",
       builder: _buildButtonCounterExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Toolbar and primary CTA',
+        vi: 'Toolbar và CTA chính',
+      ),
+      description: LocalizedText(
+        en: 'Mix light-weight secondary actions with a stronger full-width submit action.',
+        vi: 'Kết hợp action phụ gọn nhẹ với một CTA submit nổi bật hơn.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.stretch,\n"
+          "  children: [\n"
+          "    Row(\n"
+          "      children: [\n"
+          "        Expanded(child: AppButton(text: 'Preview', variant: AppButtonVariant.outline, onPressed: () {})),\n"
+          "        SizedBox(width: 12),\n"
+          "        Expanded(child: AppButton(text: 'Save draft', variant: AppButtonVariant.text, onPressed: () {})),\n"
+          "      ],\n"
+          "    ),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppButton(text: 'Publish product', isFullWidth: true, onPressed: () {}),\n"
+          "  ],\n"
+          ")",
+      builder: _buildButtonToolbarExample,
     ),
   ];
 }
@@ -432,10 +685,47 @@ class _ButtonCounterExampleState extends State<_ButtonCounterExample> {
   }
 }
 
+Widget _buildButtonToolbarExample(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Row(
+        children: [
+          Expanded(
+            child: AppButton(
+              text: 'Preview',
+              variant: AppButtonVariant.outline,
+              onPressed: () {},
+            ),
+          ),
+          const SizedBox(width: SpacingTokens.spaceM),
+          Expanded(
+            child: AppButton(
+              text: 'Save draft',
+              variant: AppButtonVariant.text,
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: SpacingTokens.spaceM),
+      AppButton(
+        text: 'Publish product',
+        variant: AppButtonVariant.primary,
+        isFullWidth: true,
+        onPressed: () {},
+      ),
+    ],
+  );
+}
+
 List<ExampleDocEntry> buildCheckboxExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Standard and tristate', vi: 'Standard và tristate'),
+      title: LocalizedText(
+        en: 'Standard and tristate',
+        vi: 'Standard và tristate',
+      ),
       description: LocalizedText(
         en: 'Handle boolean and indeterminate selection flows.',
         vi: 'Xử lý flow chọn boolean và trạng thái không xác định.',
@@ -463,6 +753,26 @@ List<ExampleDocEntry> buildCheckboxExamples() {
           ")",
       builder: _buildCheckboxVariantsExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Checklist with summary',
+        vi: 'Checklist có tóm tắt',
+      ),
+      description: LocalizedText(
+        en: 'A real checklist becomes clearer when the UI also reports how many tasks are complete.',
+        vi: 'Checklist thực tế dễ hiểu hơn khi giao diện cũng báo có bao nhiêu mục đã hoàn tất.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppCheckbox(value: selected, label: 'Verify inventory', onChanged: (value) {}),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppText(text: '2/3 steps completed', size: AppTextSize.bodySRegular),\n"
+          "  ],\n"
+          ")",
+      builder: _buildCheckboxChecklistExample,
+    ),
   ];
 }
 
@@ -477,7 +787,8 @@ class _CheckboxInteractiveExample extends StatefulWidget {
 Widget _buildCheckboxInteractive(BuildContext context) =>
     const _CheckboxInteractiveExample();
 
-class _CheckboxInteractiveExampleState extends State<_CheckboxInteractiveExample> {
+class _CheckboxInteractiveExampleState
+    extends State<_CheckboxInteractiveExample> {
   bool? _remember = false;
   bool? _indeterminate;
 
@@ -522,10 +833,70 @@ Widget _buildCheckboxVariantsExample(BuildContext context) {
   );
 }
 
+class _CheckboxChecklistExample extends StatefulWidget {
+  const _CheckboxChecklistExample();
+
+  @override
+  State<_CheckboxChecklistExample> createState() =>
+      _CheckboxChecklistExampleState();
+}
+
+Widget _buildCheckboxChecklistExample(BuildContext context) =>
+    const _CheckboxChecklistExample();
+
+class _CheckboxChecklistExampleState extends State<_CheckboxChecklistExample> {
+  bool _inventoryChecked = true;
+  bool _pricingChecked = false;
+  bool _imagesChecked = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final completed = [
+      _inventoryChecked,
+      _pricingChecked,
+      _imagesChecked,
+    ].where((value) => value).length;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppCheckbox(
+          value: _inventoryChecked,
+          label: 'Verify inventory',
+          onChanged: (value) =>
+              setState(() => _inventoryChecked = value ?? false),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppCheckbox(
+          value: _pricingChecked,
+          label: 'Confirm pricing',
+          onChanged: (value) =>
+              setState(() => _pricingChecked = value ?? false),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppCheckbox(
+          value: _imagesChecked,
+          label: 'Review product images',
+          onChanged: (value) => setState(() => _imagesChecked = value ?? false),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: '$completed/3 publishing checks completed',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
+}
+
 List<ExampleDocEntry> buildRadioExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Single selection group', vi: 'Nhóm chọn một giá trị'),
+      title: LocalizedText(
+        en: 'Single selection group',
+        vi: 'Nhóm chọn một giá trị',
+      ),
       description: LocalizedText(
         en: 'Bind multiple radios to the same group value.',
         vi: 'Ràng buộc nhiều radio vào cùng một group value.',
@@ -554,6 +925,26 @@ List<ExampleDocEntry> buildRadioExamples() {
           ")",
       builder: _buildRadioBoxedExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Delivery method selector',
+        vi: 'Bộ chọn phương thức giao hàng',
+      ),
+      description: LocalizedText(
+        en: 'Grouped radios are a good fit when the user must choose exactly one operational path.',
+        vi: 'Radio group phù hợp khi người dùng bắt buộc phải chọn đúng một hướng xử lý.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppRadio<String>(value: 'pickup', groupValue: method, variant: AppRadioVariant.boxed, label: 'Pick up at store', onChanged: (value) {}),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppRadio<String>(value: 'delivery', groupValue: method, variant: AppRadioVariant.boxed, label: 'Ship to customer', onChanged: (value) {}),\n"
+          "  ],\n"
+          ")",
+      builder: _buildRadioDeliveryExample,
+    ),
   ];
 }
 
@@ -561,7 +952,8 @@ class _RadioInteractiveExample extends StatefulWidget {
   const _RadioInteractiveExample();
 
   @override
-  State<_RadioInteractiveExample> createState() => _RadioInteractiveExampleState();
+  State<_RadioInteractiveExample> createState() =>
+      _RadioInteractiveExampleState();
 }
 
 Widget _buildRadioInteractive(BuildContext context) =>
@@ -603,6 +995,50 @@ Widget _buildRadioBoxedExample(BuildContext context) {
   );
 }
 
+class _RadioDeliveryExample extends StatefulWidget {
+  const _RadioDeliveryExample();
+
+  @override
+  State<_RadioDeliveryExample> createState() => _RadioDeliveryExampleState();
+}
+
+Widget _buildRadioDeliveryExample(BuildContext context) =>
+    const _RadioDeliveryExample();
+
+class _RadioDeliveryExampleState extends State<_RadioDeliveryExample> {
+  String _method = 'pickup';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppRadio<String>(
+          value: 'pickup',
+          groupValue: _method,
+          variant: AppRadioVariant.boxed,
+          label: 'Pick up at store',
+          onChanged: (value) => setState(() => _method = value ?? _method),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppRadio<String>(
+          value: 'delivery',
+          groupValue: _method,
+          variant: AppRadioVariant.boxed,
+          label: 'Ship to customer',
+          onChanged: (value) => setState(() => _method = value ?? _method),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: 'Selected method: $_method',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
+}
+
 List<ExampleDocEntry> buildSwitchExamples() {
   return const [
     ExampleDocEntry(
@@ -620,7 +1056,10 @@ List<ExampleDocEntry> buildSwitchExamples() {
       builder: _buildSwitchInteractive,
     ),
     ExampleDocEntry(
-      title: LocalizedText(en: 'Sizes and disabled state', vi: 'Size và disabled'),
+      title: LocalizedText(
+        en: 'Sizes and disabled state',
+        vi: 'Size và disabled',
+      ),
       description: LocalizedText(
         en: 'Use smaller tracks in tables and denser setting panes.',
         vi: 'Dùng track nhỏ hơn trong bảng và màn hình setting dày hơn.',
@@ -634,6 +1073,26 @@ List<ExampleDocEntry> buildSwitchExamples() {
           ")",
       builder: _buildSwitchVariantsExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Preference panel',
+        vi: 'Cụm cài đặt preference',
+      ),
+      description: LocalizedText(
+        en: 'Switches are especially readable when paired with short setting labels and a live summary.',
+        vi: 'Switch dễ đọc hơn khi đi cùng label ngắn cho cài đặt và một phần tóm tắt trạng thái hiện tại.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppSwitch(value: marketing, label: 'Marketing emails', onChanged: (value) {}),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppSwitch(value: sms, label: 'SMS alerts', onChanged: (value) {}),\n"
+          "  ],\n"
+          ")",
+      builder: _buildSwitchPreferenceExample,
+    ),
   ];
 }
 
@@ -641,7 +1100,8 @@ class _SwitchInteractiveExample extends StatefulWidget {
   const _SwitchInteractiveExample();
 
   @override
-  State<_SwitchInteractiveExample> createState() => _SwitchInteractiveExampleState();
+  State<_SwitchInteractiveExample> createState() =>
+      _SwitchInteractiveExampleState();
 }
 
 Widget _buildSwitchInteractive(BuildContext context) =>
@@ -676,10 +1136,68 @@ Widget _buildSwitchVariantsExample(BuildContext context) {
   );
 }
 
+class _SwitchPreferenceExample extends StatefulWidget {
+  const _SwitchPreferenceExample();
+
+  @override
+  State<_SwitchPreferenceExample> createState() =>
+      _SwitchPreferenceExampleState();
+}
+
+Widget _buildSwitchPreferenceExample(BuildContext context) =>
+    const _SwitchPreferenceExample();
+
+class _SwitchPreferenceExampleState extends State<_SwitchPreferenceExample> {
+  bool _marketing = true;
+  bool _sms = false;
+  bool _push = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabledCount = [
+      _marketing,
+      _sms,
+      _push,
+    ].where((value) => value).length;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppSwitch(
+          value: _marketing,
+          label: 'Marketing emails',
+          onChanged: (value) => setState(() => _marketing = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppSwitch(
+          value: _sms,
+          label: 'SMS alerts',
+          onChanged: (value) => setState(() => _sms = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppSwitch(
+          value: _push,
+          label: 'Push notifications',
+          onChanged: (value) => setState(() => _push = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: '$enabledCount/3 notification channels enabled',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
+}
+
 List<ExampleDocEntry> buildTextFieldExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Variants and adornments', vi: 'Variant và adornment'),
+      title: LocalizedText(
+        en: 'Variants and adornments',
+        vi: 'Variant và adornment',
+      ),
       description: LocalizedText(
         en: 'Mix helper text, icons, prefix, suffix, and semantic variants.',
         vi: 'Kết hợp helper text, icon, prefix, suffix và variant semantic.',
@@ -706,6 +1224,34 @@ List<ExampleDocEntry> buildTextFieldExamples() {
           "  validate: (value) => value.contains('@') ? null : 'Invalid email',\n"
           ")",
       builder: _buildTextFieldValidation,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Structured form input',
+        vi: 'Input form có cấu trúc',
+      ),
+      description: LocalizedText(
+        en: 'Prefix and suffix slots help communicate units, codes, and constrained input formats.',
+        vi: 'Các slot prefix và suffix giúp diễn đạt đơn vị tính, mã và định dạng nhập liệu có ràng buộc.',
+      ),
+      code:
+          "const Column(\n"
+          "  children: [\n"
+          "    AppTextField(\n"
+          "      labelText: 'Invoice code',\n"
+          "      prefix: AppText(text: '#'),\n"
+          "      hintText: 'INV-2026-001',\n"
+          "    ),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppTextField(\n"
+          "      labelText: 'Amount',\n"
+          "      prefix: AppText(text: 'VND'),\n"
+          "      suffix: AppText(text: '.000'),\n"
+          "      hintText: '250',\n"
+          "    ),\n"
+          "  ],\n"
+          ")",
+      builder: _buildTextFieldStructuredExample,
     ),
   ];
 }
@@ -743,7 +1289,8 @@ class _TextFieldValidationExample extends StatefulWidget {
 Widget _buildTextFieldValidation(BuildContext context) =>
     const _TextFieldValidationExample();
 
-class _TextFieldValidationExampleState extends State<_TextFieldValidationExample> {
+class _TextFieldValidationExampleState
+    extends State<_TextFieldValidationExample> {
   String _value = '';
 
   @override
@@ -755,9 +1302,8 @@ class _TextFieldValidationExampleState extends State<_TextFieldValidationExample
           labelText: 'Email',
           hintText: 'your@company.com',
           onChanged: (value) => setState(() => _value = value),
-          validate:
-              (value) =>
-                  value.contains('@') ? null : 'Invalid email format',
+          validate: (value) =>
+              value.contains('@') ? null : 'Invalid email format',
         ),
         const SizedBox(height: 12),
         AppText(
@@ -768,6 +1314,25 @@ class _TextFieldValidationExampleState extends State<_TextFieldValidationExample
       ],
     );
   }
+}
+
+Widget _buildTextFieldStructuredExample(BuildContext context) {
+  return const Column(
+    children: [
+      AppTextField(
+        labelText: 'Invoice code',
+        prefix: AppText(text: '#'),
+        hintText: 'INV-2026-001',
+      ),
+      SizedBox(height: SpacingTokens.spaceM),
+      AppTextField(
+        labelText: 'Amount',
+        prefix: AppText(text: 'VND'),
+        suffix: AppText(text: '.000'),
+        hintText: '250',
+      ),
+    ],
+  );
 }
 
 List<ExampleDocEntry> buildPasswordFieldExamples() {
@@ -799,6 +1364,23 @@ List<ExampleDocEntry> buildPasswordFieldExamples() {
           ")",
       builder: _buildPasswordValidationExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Strength guidance',
+        vi: 'Gợi ý độ mạnh mật khẩu',
+      ),
+      description: LocalizedText(
+        en: 'A small live summary helps readers understand how to pair the field with adjacent helper logic.',
+        vi: 'Một phần tóm tắt nhỏ giúp người đọc hiểu cách ghép field với logic trợ giúp đi kèm.',
+      ),
+      code:
+          "AppPasswordField(\n"
+          "  labelText: 'Create password',\n"
+          "  helperText: 'Use at least 8 characters',\n"
+          "  onChanged: (value) {},\n"
+          ")",
+      builder: _buildPasswordStrengthExample,
+    ),
   ];
 }
 
@@ -813,15 +1395,59 @@ Widget _buildPasswordFieldExample(BuildContext context) {
 Widget _buildPasswordValidationExample(BuildContext context) {
   return AppPasswordField(
     labelText: 'New password',
-    validate:
-        (value) => value.length < 8 ? 'Minimum 8 characters required' : null,
+    validate: (value) =>
+        value.length < 8 ? 'Minimum 8 characters required' : null,
   );
+}
+
+class _PasswordStrengthExample extends StatefulWidget {
+  const _PasswordStrengthExample();
+
+  @override
+  State<_PasswordStrengthExample> createState() =>
+      _PasswordStrengthExampleState();
+}
+
+Widget _buildPasswordStrengthExample(BuildContext context) =>
+    const _PasswordStrengthExample();
+
+class _PasswordStrengthExampleState extends State<_PasswordStrengthExample> {
+  String _value = '';
+
+  String get _strengthLabel {
+    if (_value.length >= 10) return 'Strong';
+    if (_value.length >= 6) return 'Medium';
+    return 'Weak';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppPasswordField(
+          labelText: 'Create password',
+          helperText: 'Use at least 8 characters',
+          onChanged: (value) => setState(() => _value = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: 'Strength: $_strengthLabel',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
 }
 
 List<ExampleDocEntry> buildSearchFieldExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Debounced search callback', vi: 'Callback search có debounce'),
+      title: LocalizedText(
+        en: 'Debounced search callback',
+        vi: 'Callback search có debounce',
+      ),
       description: LocalizedText(
         en: 'Use onSearchChanged to trigger remote queries after a short delay.',
         vi: 'Dùng onSearchChanged để gọi truy vấn remote sau một khoảng delay ngắn.',
@@ -832,6 +1458,26 @@ List<ExampleDocEntry> buildSearchFieldExamples() {
           "  onSearchChanged: (value) {},\n"
           ")",
       builder: _buildSearchFieldLiveExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Local result filtering',
+        vi: 'Lọc kết quả local',
+      ),
+      description: LocalizedText(
+        en: 'This pattern shows how the debounced field can still drive a simple local results list.',
+        vi: 'Pattern này cho thấy field có debounce vẫn có thể điều khiển một danh sách kết quả local rất gọn.',
+      ),
+      code:
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppSearchField(hintText: 'Search warehouses', onChanged: (value) {}),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppText(text: 'Filtered results appear below', size: AppTextSize.bodySRegular),\n"
+          "  ],\n"
+          ")",
+      builder: _buildSearchFieldFilterExample,
     ),
   ];
 }
@@ -860,10 +1506,68 @@ class _SearchFieldExampleState extends State<_SearchFieldExample> {
         ),
         const SizedBox(height: 12),
         AppText(
-          text: 'Latest debounced query: ${_query.isEmpty ? '(empty)' : _query}',
+          text:
+              'Latest debounced query: ${_query.isEmpty ? '(empty)' : _query}',
           size: AppTextSize.bodySRegular,
           color: ColorTokens.textDescription,
         ),
+      ],
+    );
+  }
+}
+
+class _SearchFieldFilterExample extends StatefulWidget {
+  const _SearchFieldFilterExample();
+
+  @override
+  State<_SearchFieldFilterExample> createState() =>
+      _SearchFieldFilterExampleState();
+}
+
+Widget _buildSearchFieldFilterExample(BuildContext context) =>
+    const _SearchFieldFilterExample();
+
+class _SearchFieldFilterExampleState extends State<_SearchFieldFilterExample> {
+  static const _allWarehouses = [
+    'North Hub',
+    'Central Storage',
+    'South Dispatch',
+    'Returns Room',
+  ];
+
+  String _keyword = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _allWarehouses
+        .where(
+          (item) => item.toLowerCase().contains(_keyword.trim().toLowerCase()),
+        )
+        .toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppSearchField(
+          hintText: 'Search warehouses',
+          onChanged: (value) => setState(() => _keyword = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        for (final item in filtered)
+          Padding(
+            padding: const EdgeInsets.only(bottom: SpacingTokens.spaceS),
+            child: AppText(
+              text: item,
+              size: AppTextSize.bodySRegular,
+              color: ColorTokens.textDefault,
+            ),
+          ),
+        if (filtered.isEmpty)
+          const AppText(
+            text: 'No local matches',
+            size: AppTextSize.bodySRegular,
+            color: ColorTokens.textDescription,
+          ),
       ],
     );
   }
@@ -883,6 +1587,40 @@ List<ExampleDocEntry> buildOtpExamples() {
           "  onCompleted: (value) {},\n"
           ")",
       builder: _buildOtpFieldLiveExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Custom length and reset',
+        vi: 'Độ dài tùy chỉnh và reset',
+      ),
+      description: LocalizedText(
+        en: 'This example helps readers see how to control the OTP value from outside the field.',
+        vi: 'Ví dụ này giúp người đọc thấy cách điều khiển giá trị OTP từ bên ngoài field.',
+      ),
+      code:
+          "final controller = TextEditingController();\n"
+          "\n"
+          "Column(\n"
+          "  crossAxisAlignment: CrossAxisAlignment.start,\n"
+          "  children: [\n"
+          "    AppOtpField(length: 4, controller: controller),\n"
+          "    SizedBox(height: 12),\n"
+          "    AppButton(text: 'Reset OTP', onPressed: () => controller.clear()),\n"
+          "  ],\n"
+          ")",
+      builder: _buildOtpResetExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Disabled OTP state',
+        vi: 'OTP ở trạng thái disabled',
+      ),
+      description: LocalizedText(
+        en: 'Use the disabled state while waiting for a resend timer or external verification step.',
+        vi: 'Dùng trạng thái disabled khi đang chờ bộ đếm resend hoặc một bước xác thực bên ngoài.',
+      ),
+      code: "const AppOtpField(isDisabled: true)",
+      builder: _buildOtpDisabledExample,
     ),
   ];
 }
@@ -927,6 +1665,46 @@ class _OtpFieldExampleState extends State<_OtpFieldExample> {
   }
 }
 
+class _OtpResetExample extends StatefulWidget {
+  const _OtpResetExample();
+
+  @override
+  State<_OtpResetExample> createState() => _OtpResetExampleState();
+}
+
+Widget _buildOtpResetExample(BuildContext context) => const _OtpResetExample();
+
+class _OtpResetExampleState extends State<_OtpResetExample> {
+  final TextEditingController _controller = TextEditingController(text: '12');
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppOtpField(length: 4, controller: _controller),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppButton(
+          text: 'Reset OTP',
+          size: AppButtonSize.small,
+          variant: AppButtonVariant.outline,
+          onPressed: () => _controller.clear(),
+        ),
+      ],
+    );
+  }
+}
+
+Widget _buildOtpDisabledExample(BuildContext context) {
+  return const AppOtpField(isDisabled: true);
+}
+
 List<ExampleDocEntry> buildDateTimeExamples() {
   return const [
     ExampleDocEntry(
@@ -958,6 +1736,24 @@ List<ExampleDocEntry> buildDateTimeExamples() {
           ")",
       builder: _buildTimeFieldLiveExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Date-time appointment',
+        vi: 'Lịch hẹn ngày-giờ',
+      ),
+      description: LocalizedText(
+        en: 'Date-time mode is useful for booking flows where the date and hour belong to the same action.',
+        vi: 'Mode ngày-giờ phù hợp cho flow đặt lịch khi ngày và giờ thuộc cùng một hành động.',
+      ),
+      code:
+          "AppDateTimeField(\n"
+          "  mode: AppDateTimeFieldMode.dateTime,\n"
+          "  labelText: 'Pickup slot',\n"
+          "  hintText: 'Choose date and time',\n"
+          "  onChanged: (value) {},\n"
+          ")",
+      builder: _buildDateTimeAppointmentExample,
+    ),
   ];
 }
 
@@ -987,7 +1783,9 @@ class _DateTimeFieldExampleState extends State<_DateTimeFieldExample> {
         ),
         const SizedBox(height: 12),
         AppText(
-          text: _date == null ? 'No date selected' : 'Selected: ${_date!.toIso8601String().split('T').first}',
+          text: _date == null
+              ? 'No date selected'
+              : 'Selected: ${_date!.toIso8601String().split('T').first}',
           size: AppTextSize.bodySRegular,
           color: ColorTokens.textDescription,
         ),
@@ -1021,7 +1819,49 @@ class _TimeFieldExampleState extends State<_TimeFieldExample> {
         ),
         const SizedBox(height: 12),
         AppText(
-          text: _time == null ? 'No time selected' : 'Selected: ${_time!.format(context)}',
+          text: _time == null
+              ? 'No time selected'
+              : 'Selected: ${_time!.format(context)}',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
+}
+
+class _DateTimeAppointmentExample extends StatefulWidget {
+  const _DateTimeAppointmentExample();
+
+  @override
+  State<_DateTimeAppointmentExample> createState() =>
+      _DateTimeAppointmentExampleState();
+}
+
+Widget _buildDateTimeAppointmentExample(BuildContext context) =>
+    const _DateTimeAppointmentExample();
+
+class _DateTimeAppointmentExampleState
+    extends State<_DateTimeAppointmentExample> {
+  DateTime? _appointment;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppDateTimeField(
+          mode: AppDateTimeFieldMode.dateTime,
+          labelText: 'Pickup slot',
+          hintText: 'Choose date and time',
+          helperText: 'Useful for pickup, delivery, or appointment flows.',
+          onChanged: (value) => setState(() => _appointment = value),
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: _appointment == null
+              ? 'No appointment selected'
+              : 'Selected: ${_appointment!.toLocal()}',
           size: AppTextSize.bodySRegular,
           color: ColorTokens.textDescription,
         ),
@@ -1067,6 +1907,25 @@ List<ExampleDocEntry> buildDropdownExamples() {
           "  onSearchChanged: (value) {},\n"
           ")",
       builder: _buildDropdownAsyncExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Object mapping example',
+        vi: 'Ví dụ map dữ liệu object',
+      ),
+      description: LocalizedText(
+        en: 'Readers often need to bind dropdowns to models, not raw strings, so this example keeps the selected object intact.',
+        vi: 'Người đọc thường phải bind dropdown với model thay vì string thuần, nên ví dụ này giữ nguyên object đã chọn.',
+      ),
+      code:
+          "AppDropdown<_DropdownUser>(\n"
+          "  items: users,\n"
+          "  value: selectedUser,\n"
+          "  hintText: 'Assign approver',\n"
+          "  itemAsString: (item) => item.name,\n"
+          "  onChanged: (value) {},\n"
+          ")",
+      builder: _buildDropdownObjectExample,
     ),
   ];
 }
@@ -1182,10 +2041,79 @@ class _DropdownAsyncExampleState extends State<_DropdownAsyncExample> {
   }
 }
 
+class _DropdownUser {
+  final int id;
+  final String name;
+  final String role;
+
+  const _DropdownUser({
+    required this.id,
+    required this.name,
+    required this.role,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    return other is _DropdownUser && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+}
+
+class _DropdownObjectExample extends StatefulWidget {
+  const _DropdownObjectExample();
+
+  @override
+  State<_DropdownObjectExample> createState() => _DropdownObjectExampleState();
+}
+
+Widget _buildDropdownObjectExample(BuildContext context) =>
+    const _DropdownObjectExample();
+
+class _DropdownObjectExampleState extends State<_DropdownObjectExample> {
+  final List<_DropdownUser> _users = const [
+    _DropdownUser(id: 1, name: 'Lan Anh', role: 'Store manager'),
+    _DropdownUser(id: 2, name: 'Minh Quan', role: 'Area supervisor'),
+    _DropdownUser(id: 3, name: 'Thao Vy', role: 'Finance reviewer'),
+  ];
+
+  _DropdownUser? _selectedUser;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppDropdown<_DropdownUser>(
+          items: _users,
+          value: _selectedUser,
+          hintText: 'Assign approver',
+          labelText: 'Approver',
+          itemAsString: (item) => '${item.name} - ${item.role}',
+          onChanged: (value) => setState(() => _selectedUser = value),
+          isSearchable: true,
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppText(
+          text: _selectedUser == null
+              ? 'No approver selected'
+              : 'Selected approver: ${_selectedUser!.name}',
+          size: AppTextSize.bodySRegular,
+          color: ColorTokens.textDescription,
+        ),
+      ],
+    );
+  }
+}
+
 List<ExampleDocEntry> buildBottomSheetSelectExamples() {
   return const [
     ExampleDocEntry(
-      title: LocalizedText(en: 'Single choice field', vi: 'Field chọn một giá trị'),
+      title: LocalizedText(
+        en: 'Single choice field',
+        vi: 'Field chọn một giá trị',
+      ),
       description: LocalizedText(
         en: 'Keep the compact field trigger while opening choices in a bottom sheet.',
         vi: 'Giữ trigger gọn dạng field nhưng mở danh sách chọn trong bottom sheet.',
@@ -1203,7 +2131,10 @@ List<ExampleDocEntry> buildBottomSheetSelectExamples() {
       builder: _buildBottomSheetSelectSingleExample,
     ),
     ExampleDocEntry(
-      title: LocalizedText(en: 'Multi choice and remote states', vi: 'Multi choice và trạng thái remote'),
+      title: LocalizedText(
+        en: 'Multi choice and remote states',
+        vi: 'Multi choice và trạng thái remote',
+      ),
       description: LocalizedText(
         en: 'Combine multi-select summaries with remote search and incremental loading.',
         vi: 'Kết hợp tóm tắt multi-select với remote search và nạp thêm dữ liệu.',
@@ -1218,6 +2149,27 @@ List<ExampleDocEntry> buildBottomSheetSelectExamples() {
           "  onChanged: (values) {},\n"
           ")",
       builder: _buildBottomSheetSelectAdvancedExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Custom selection summary',
+        vi: 'Tóm tắt lựa chọn tùy chỉnh',
+      ),
+      description: LocalizedText(
+        en: 'The selectedItemsTextBuilder callback is useful when the trigger should stay compact after many selections.',
+        vi: 'Callback selectedItemsTextBuilder hữu ích khi trigger cần gọn dù người dùng chọn nhiều giá trị.',
+      ),
+      code:
+          "AppBottomSheetSelect<String>.multi(\n"
+          "  labelText: 'Audience tags',\n"
+          "  hintText: 'Choose tags',\n"
+          "  items: tags,\n"
+          "  values: selectedTags,\n"
+          "  itemAsString: (item) => item,\n"
+          "  selectedItemsTextBuilder: (values) => '\${values.length} tags selected',\n"
+          "  onChanged: (values) {},\n"
+          ")",
+      builder: _buildBottomSheetSelectSummaryExample,
     ),
   ];
 }
@@ -1294,7 +2246,10 @@ class _BottomSheetSelectAdvancedExampleState
     _searchWarehouses('');
   }
 
-  Future<void> _searchWarehouses(String keyword, {bool loadMore = false}) async {
+  Future<void> _searchWarehouses(
+    String keyword, {
+    bool loadMore = false,
+  }) async {
     final normalizedKeyword = keyword.trim().toLowerCase();
 
     setState(() {
@@ -1373,6 +2328,44 @@ class _BottomSheetSelectAdvancedExampleState
   }
 }
 
+class _BottomSheetSelectSummaryExample extends StatefulWidget {
+  const _BottomSheetSelectSummaryExample();
+
+  @override
+  State<_BottomSheetSelectSummaryExample> createState() =>
+      _BottomSheetSelectSummaryExampleState();
+}
+
+Widget _buildBottomSheetSelectSummaryExample(BuildContext context) =>
+    const _BottomSheetSelectSummaryExample();
+
+class _BottomSheetSelectSummaryExampleState
+    extends State<_BottomSheetSelectSummaryExample> {
+  final List<String> _tags = const ['Retail', 'VIP', 'Wholesale', 'New user'];
+  List<String> _selectedTags = const ['Retail', 'VIP'];
+
+  String _summary(List<String> values) {
+    if (values.isEmpty) return '';
+    return '${values.length} tags selected';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBottomSheetSelect<String>.multi(
+      labelText: 'Audience tags',
+      hintText: 'Choose tags',
+      helperText:
+          'Compact summary works well when many values can be selected.',
+      items: _tags,
+      values: _selectedTags,
+      itemAsString: (item) => item,
+      selectedItemsTextBuilder: _summary,
+      onChanged: (values) => setState(() => _selectedTags = values),
+      sheetTitle: 'Audience tags',
+    );
+  }
+}
+
 class _RemoteWarehouse {
   final int id;
   final String title;
@@ -1425,6 +2418,24 @@ List<ExampleDocEntry> buildAlertExamples() {
           ");",
       builder: _buildAlertOverlayExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Inline alert with actions',
+        vi: 'Alert inline có action',
+      ),
+      description: LocalizedText(
+        en: 'Actions make inline alerts more useful when users can immediately respond to the message.',
+        vi: 'Action giúp alert inline hữu ích hơn khi người dùng có thể phản hồi ngay với thông điệp đó.',
+      ),
+      code:
+          "AppAlert(\n"
+          "  type: AppAlertType.info,\n"
+          "  title: 'Pending approval',\n"
+          "  description: 'This payout is waiting for finance confirmation.',\n"
+          "  actions: [AppAlertAction(text: 'View details')],\n"
+          ")",
+      builder: _buildAlertInlineActionExample,
+    ),
   ];
 }
 
@@ -1460,6 +2471,15 @@ class _AlertOverlayExample extends StatelessWidget {
 Widget _buildAlertOverlayExample(BuildContext context) =>
     const _AlertOverlayExample();
 
+Widget _buildAlertInlineActionExample(BuildContext context) {
+  return AppAlert(
+    type: AppAlertType.info,
+    title: 'Pending approval',
+    description: 'This payout is waiting for finance confirmation.',
+    actions: const [AppAlertAction(text: 'View details')],
+  );
+}
+
 List<ExampleDocEntry> buildBottomSheetExamples() {
   return const [
     ExampleDocEntry(
@@ -1481,6 +2501,26 @@ List<ExampleDocEntry> buildBottomSheetExamples() {
           ");",
       builder: _buildBottomSheetLiveExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Scrollable sheet content',
+        vi: 'Bottom sheet có nội dung cuộn',
+      ),
+      description: LocalizedText(
+        en: 'A scrollable body is helpful for choice lists, previews, and stacked form content.',
+        vi: 'Phần thân cuộn phù hợp cho danh sách lựa chọn, preview hoặc form có nhiều khối nội dung.',
+      ),
+      code:
+          "AppBottomSheet.show<void>(\n"
+          "  context: context,\n"
+          "  builder: (sheetContext) => AppBottomSheet(\n"
+          "    title: 'Batch summary',\n"
+          "    size: AppBottomSheetSize.large,\n"
+          "    child: Column(children: [...]),\n"
+          "  ),\n"
+          ");",
+      builder: _buildBottomSheetScrollableExample,
+    ),
   ];
 }
 
@@ -1495,26 +2535,25 @@ class _BottomSheetExample extends StatelessWidget {
       onPressed: () {
         AppBottomSheet.show<void>(
           context: context,
-          builder:
-              (sheetContext) => AppBottomSheet(
-                title: 'Filter products',
-                description: 'Choose the conditions to apply.',
-                titlePrimaryAction: 'Apply',
-                titleSecondaryAction: 'Reset',
-                titleCancelAction: 'Cancel',
-                onPrimaryAction: () => AppBottomSheet.close(sheetContext),
-                onSecondaryAction: () {},
-                onCancelAction: () => AppBottomSheet.close(sheetContext),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AppCheckbox(value: true, label: 'Only low stock'),
-                    SizedBox(height: 12),
-                    AppCheckbox(value: false, label: 'Only active products'),
-                  ],
-                ),
-              ),
+          builder: (sheetContext) => AppBottomSheet(
+            title: 'Filter products',
+            description: 'Choose the conditions to apply.',
+            titlePrimaryAction: 'Apply',
+            titleSecondaryAction: 'Reset',
+            titleCancelAction: 'Cancel',
+            onPrimaryAction: () => AppBottomSheet.close(sheetContext),
+            onSecondaryAction: () {},
+            onCancelAction: () => AppBottomSheet.close(sheetContext),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppCheckbox(value: true, label: 'Only low stock'),
+                SizedBox(height: 12),
+                AppCheckbox(value: false, label: 'Only active products'),
+              ],
+            ),
+          ),
         );
       },
     );
@@ -1523,6 +2562,48 @@ class _BottomSheetExample extends StatelessWidget {
 
 Widget _buildBottomSheetLiveExample(BuildContext context) =>
     const _BottomSheetExample();
+
+class _BottomSheetScrollableExample extends StatelessWidget {
+  const _BottomSheetScrollableExample();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton(
+      text: 'Open batch summary',
+      variant: AppButtonVariant.outline,
+      onPressed: () {
+        AppBottomSheet.show<void>(
+          context: context,
+          builder: (sheetContext) => AppBottomSheet(
+            title: 'Batch summary',
+            description: 'Review each item before submitting.',
+            size: AppBottomSheetSize.large,
+            titlePrimaryAction: 'Continue',
+            onPrimaryAction: () => AppBottomSheet.close(sheetContext),
+            titleCancelAction: 'Cancel',
+            onCancelAction: () => AppBottomSheet.close(sheetContext),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                8,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(bottom: SpacingTokens.spaceM),
+                  child: AppText(
+                    text: 'Batch row ${index + 1}',
+                    size: AppTextSize.bodyMRegular,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+Widget _buildBottomSheetScrollableExample(BuildContext context) =>
+    const _BottomSheetScrollableExample();
 
 List<ExampleDocEntry> buildModalExamples() {
   return const [
@@ -1548,6 +2629,27 @@ List<ExampleDocEntry> buildModalExamples() {
           ");",
       builder: _buildModalLiveExample,
     ),
+    ExampleDocEntry(
+      title: LocalizedText(
+        en: 'Review modal with body content',
+        vi: 'Modal review có body content',
+      ),
+      description: LocalizedText(
+        en: 'Use the child slot when the modal must summarize data before the user confirms.',
+        vi: 'Dùng child khi modal cần tóm tắt dữ liệu trước khi người dùng xác nhận.',
+      ),
+      code:
+          "AppModal.show<void>(\n"
+          "  context: context,\n"
+          "  builder: (dialogContext) => AppModal(\n"
+          "    title: 'Review payout',\n"
+          "    description: 'Please check the details below.',\n"
+          "    titlePrimaryAction: 'Confirm',\n"
+          "    child: Column(children: [...]),\n"
+          "  ),\n"
+          ");",
+      builder: _buildModalReviewExample,
+    ),
   ];
 }
 
@@ -1562,23 +2664,26 @@ class _ModalExample extends StatelessWidget {
       onPressed: () async {
         final result = await AppModal.show<bool>(
           context: context,
-          builder:
-              (dialogContext) => AppModal(
-                modalType: AppModalType.danger,
-                title: 'Delete item?',
-                description: 'This action cannot be undone.',
-                titleCancelAction: 'Cancel',
-                onCancelAction: () => AppModal.close(dialogContext, false),
-                titlePrimaryAction: 'Delete',
-                onPrimaryAction: () => AppModal.close(dialogContext, true),
-                child: const SizedBox.shrink(),
-              ),
+          builder: (dialogContext) => AppModal(
+            modalType: AppModalType.danger,
+            title: 'Delete item?',
+            description: 'This action cannot be undone.',
+            titleCancelAction: 'Cancel',
+            onCancelAction: () => AppModal.close(dialogContext, false),
+            titlePrimaryAction: 'Delete',
+            onPrimaryAction: () => AppModal.close(dialogContext, true),
+            child: const SizedBox.shrink(),
+          ),
         );
 
         if (!context.mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Result: ${result == true ? 'confirmed' : 'cancelled'}')),
+          SnackBar(
+            content: Text(
+              'Result: ${result == true ? 'confirmed' : 'cancelled'}',
+            ),
+          ),
         );
       },
     );
@@ -1586,3 +2691,52 @@ class _ModalExample extends StatelessWidget {
 }
 
 Widget _buildModalLiveExample(BuildContext context) => const _ModalExample();
+
+class _ModalReviewExample extends StatelessWidget {
+  const _ModalReviewExample();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton(
+      text: 'Open review modal',
+      variant: AppButtonVariant.outline,
+      onPressed: () {
+        AppModal.show<void>(
+          context: context,
+          builder: (dialogContext) => AppModal(
+            title: 'Review payout',
+            description: 'Please check the details below.',
+            size: AppModalSize.large,
+            titleCancelAction: 'Cancel',
+            onCancelAction: () => AppModal.close(dialogContext),
+            titlePrimaryAction: 'Confirm',
+            onPrimaryAction: () => AppModal.close(dialogContext),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppText(
+                  text: 'Beneficiary: FV Supplier A',
+                  size: AppTextSize.bodyMRegular,
+                ),
+                SizedBox(height: SpacingTokens.spaceS),
+                AppText(
+                  text: 'Amount: 12,000,000 VND',
+                  size: AppTextSize.bodyMRegular,
+                ),
+                SizedBox(height: SpacingTokens.spaceS),
+                AppText(
+                  text: 'Expected payout date: 2026-05-14',
+                  size: AppTextSize.bodyMRegular,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+Widget _buildModalReviewExample(BuildContext context) =>
+    const _ModalReviewExample();
