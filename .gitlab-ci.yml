@@ -1,0 +1,38 @@
+default:
+  image: ghcr.io/cirruslabs/flutter:3.41.5
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - .pub-cache
+
+variables:
+  PUB_CACHE: "$CI_PROJECT_DIR/.pub-cache"
+
+pages:
+  stage: deploy
+  script:
+    - flutter config --enable-web
+    - flutter pub get
+    - flutter analyze
+    - flutter test
+    - >
+      PAGES_PATH="$(printf '%s' "$CI_PAGES_URL" | sed -E 's#https?://[^/]+##')";
+      if [ -z "$PAGES_PATH" ]; then
+        PAGES_PATH='/';
+      fi;
+      case "$PAGES_PATH" in
+        */) ;;
+        *) PAGES_PATH="$PAGES_PATH/" ;;
+      esac;
+      flutter build web --release --base-href "$PAGES_PATH"
+    - mv build/web public
+  pages: true
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  environment:
+    name: production
+    url: $CI_PAGES_URL
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

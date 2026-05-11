@@ -100,7 +100,8 @@ class DocsLanguageScope extends InheritedNotifier<ValueNotifier<DocsLanguage>> {
   }) : super(notifier: notifier);
 
   static ValueNotifier<DocsLanguage> controllerOf(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<DocsLanguageScope>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<DocsLanguageScope>();
     return scope?.notifier ?? _fallback;
   }
 
@@ -108,8 +109,9 @@ class DocsLanguageScope extends InheritedNotifier<ValueNotifier<DocsLanguage>> {
     return controllerOf(context).value;
   }
 
-  static final ValueNotifier<DocsLanguage> _fallback =
-      ValueNotifier(DocsLanguage.vi);
+  static final ValueNotifier<DocsLanguage> _fallback = ValueNotifier(
+    DocsLanguage.vi,
+  );
 }
 
 class AppShell extends StatelessWidget {
@@ -159,13 +161,7 @@ class AppShell extends StatelessWidget {
               ),
             ],
           ),
-          drawer: isWide
-              ? null
-              : Drawer(
-                  child: SafeArea(
-                    child: navigation,
-                  ),
-                ),
+          drawer: isWide ? null : Drawer(child: SafeArea(child: navigation)),
           body: SafeArea(
             top: false,
             child: Row(
@@ -250,19 +246,43 @@ class LanguageSwitch extends StatelessWidget {
   }
 }
 
-class AppNavigation extends StatelessWidget {
+class AppNavigation extends StatefulWidget {
   final String currentRoute;
 
   const AppNavigation({super.key, required this.currentRoute});
+
+  @override
+  State<AppNavigation> createState() => _AppNavigationState();
+}
+
+class _AppNavigationState extends State<AppNavigation> {
+  static double _savedScrollOffset = 0;
+
+  late final ScrollController _scrollController = ScrollController(
+    initialScrollOffset: _savedScrollOffset,
+  )..addListener(_handleScroll);
+
+  void _handleScroll() {
+    _savedScrollOffset = _scrollController.offset;
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_handleScroll)
+      ..dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final language = DocsLanguageScope.languageOf(context);
 
     return ListView(
+      controller: _scrollController,
       padding: const EdgeInsets.all(SpacingTokens.paddingM),
       children: [
-        _NavigationHomeTile(currentRoute: currentRoute),
+        _NavigationHomeTile(currentRoute: widget.currentRoute),
         const SizedBox(height: SpacingTokens.gapL),
         for (final group in navGroups) ...[
           AppText(
@@ -280,7 +300,7 @@ class AppNavigation extends StatelessWidget {
           for (final item in group.items) ...[
             _NavigationTile(
               item: item,
-              isActive: currentRoute == item.route,
+              isActive: widget.currentRoute == item.route,
             ),
             const SizedBox(height: SpacingTokens.gapXS),
           ],
@@ -306,7 +326,9 @@ class _NavigationHomeTile extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(RadiusTokens.radiusL),
-          color: currentRoute == '/' ? ColorTokens.primaryBg : ColorTokens.fillTertiary,
+          color: currentRoute == '/'
+              ? ColorTokens.primaryBg
+              : ColorTokens.fillTertiary,
         ),
         child: Padding(
           padding: const EdgeInsets.all(SpacingTokens.paddingM),
@@ -320,7 +342,10 @@ class _NavigationHomeTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(RadiusTokens.radiusL),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.widgets_outlined, color: ColorTokens.white),
+                child: const Icon(
+                  Icons.widgets_outlined,
+                  color: ColorTokens.white,
+                ),
               ),
               const SizedBox(width: SpacingTokens.gapM),
               Expanded(
@@ -328,7 +353,9 @@ class _NavigationHomeTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      text: language == DocsLanguage.en ? 'FV UIKit Docs' : 'FV UIKit Docs',
+                      text: language == DocsLanguage.en
+                          ? 'FV UIKit Docs'
+                          : 'FV UIKit Docs',
                       size: AppTextSize.bodyMBold,
                       color: ColorTokens.textDefault,
                     ),
@@ -368,7 +395,9 @@ class _NavigationTile extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(RadiusTokens.radiusL),
           border: Border.all(
-            color: isActive ? ColorTokens.primaryDefault : ColorTokens.borderSecondary,
+            color: isActive
+                ? ColorTokens.primaryDefault
+                : ColorTokens.borderSecondary,
           ),
           color: isActive ? ColorTokens.primaryBg : ColorTokens.white,
         ),
@@ -377,7 +406,12 @@ class _NavigationTile extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(item.icon, color: isActive ? ColorTokens.primaryDefault : ColorTokens.iconDefault),
+              Icon(
+                item.icon,
+                color: isActive
+                    ? ColorTokens.primaryDefault
+                    : ColorTokens.iconDefault,
+              ),
               const SizedBox(width: SpacingTokens.gapS),
               Expanded(
                 child: Column(
@@ -433,15 +467,21 @@ class HomePage extends StatelessWidget {
               runSpacing: SpacingTokens.gapM,
               children: [
                 StatCard(
-                  label: language == DocsLanguage.en ? 'Documented widgets' : 'Widget đã document',
+                  label: language == DocsLanguage.en
+                      ? 'Documented widgets'
+                      : 'Widget đã document',
                   value: '${widgetDocsBySlug.length}',
                 ),
                 StatCard(
-                  label: language == DocsLanguage.en ? 'Token groups' : 'Nhóm token',
+                  label: language == DocsLanguage.en
+                      ? 'Token groups'
+                      : 'Nhóm token',
                   value: '${tokenCategories.length + 1}',
                 ),
                 StatCard(
-                  label: language == DocsLanguage.en ? 'Bilingual content' : 'Nội dung song ngữ',
+                  label: language == DocsLanguage.en
+                      ? 'Bilingual content'
+                      : 'Nội dung song ngữ',
                   value: 'VI + EN',
                 ),
               ],
@@ -515,10 +555,7 @@ class TokensPage extends StatelessWidget {
               runSpacing: SpacingTokens.gapM,
               children: [
                 for (final token in colorTokens)
-                  SizedBox(
-                    width: 180,
-                    child: ColorTokenCard(token: token),
-                  ),
+                  SizedBox(width: 180, child: ColorTokenCard(token: token)),
               ],
             ),
           ),
@@ -537,10 +574,7 @@ class TokensPage extends StatelessWidget {
                     runSpacing: SpacingTokens.gapM,
                     children: [
                       for (final item in category.items)
-                        SizedBox(
-                          width: 220,
-                          child: ValueTokenCard(item: item),
-                        ),
+                        SizedBox(width: 220, child: ValueTokenCard(item: item)),
                     ],
                   ),
                 ],
@@ -708,11 +742,7 @@ class GradientHero extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF0C5B7E),
-            Color(0xFF1597A0),
-            Color(0xFFF2C572),
-          ],
+          colors: [Color(0xFF0C5B7E), Color(0xFF1597A0), Color(0xFFF2C572)],
         ),
         borderRadius: BorderRadius.circular(RadiusTokens.radiusL),
         boxShadow: BoxShadowTokens.boxShadowTertiary,
@@ -727,7 +757,14 @@ class GradientHero extends StatelessWidget {
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(child: _HeroCopy(eyebrow: eyebrow, title: title, description: description, language: language)),
+                      Expanded(
+                        child: _HeroCopy(
+                          eyebrow: eyebrow,
+                          title: title,
+                          description: description,
+                          language: language,
+                        ),
+                      ),
                       if (trailing != null) ...[
                         const SizedBox(width: SpacingTokens.gapL),
                         SizedBox(width: 320, child: trailing!),
@@ -737,7 +774,12 @@ class GradientHero extends StatelessWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _HeroCopy(eyebrow: eyebrow, title: title, description: description, language: language),
+                      _HeroCopy(
+                        eyebrow: eyebrow,
+                        title: title,
+                        description: description,
+                        language: language,
+                      ),
                       if (trailing != null) ...[
                         const SizedBox(height: SpacingTokens.gapL),
                         trailing!,
@@ -820,9 +862,17 @@ class StatCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(text: value, size: AppTextSize.heading4Bold, color: ColorTokens.white),
+            AppText(
+              text: value,
+              size: AppTextSize.heading4Bold,
+              color: ColorTokens.white,
+            ),
             const SizedBox(height: SpacingTokens.gapXS),
-            AppText(text: label, size: AppTextSize.bodySRegular, color: ColorTokens.white),
+            AppText(
+              text: label,
+              size: AppTextSize.bodySRegular,
+              color: ColorTokens.white,
+            ),
           ],
         ),
       ),
@@ -1110,7 +1160,9 @@ class CodeBlock extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  tooltip: language == DocsLanguage.en ? 'Copy code' : 'Sao chép code',
+                  tooltip: language == DocsLanguage.en
+                      ? 'Copy code'
+                      : 'Sao chép code',
                   onPressed: () async {
                     await Clipboard.setData(ClipboardData(text: resolvedCode));
                     if (!context.mounted) return;
@@ -1167,11 +1219,21 @@ class PropsTable extends StatelessWidget {
           fontWeight: FontWeight.w700,
         ),
         columns: [
-          DataColumn(label: Text(language == DocsLanguage.en ? 'Prop' : 'Prop')),
-          DataColumn(label: Text(language == DocsLanguage.en ? 'Type' : 'Kiểu')),
-          DataColumn(label: Text(language == DocsLanguage.en ? 'Required' : 'Bắt buộc')),
-          DataColumn(label: Text(language == DocsLanguage.en ? 'Default' : 'Mặc định')),
-          DataColumn(label: Text(language == DocsLanguage.en ? 'Note' : 'Ghi chú')),
+          DataColumn(
+            label: Text(language == DocsLanguage.en ? 'Prop' : 'Prop'),
+          ),
+          DataColumn(
+            label: Text(language == DocsLanguage.en ? 'Type' : 'Kiểu'),
+          ),
+          DataColumn(
+            label: Text(language == DocsLanguage.en ? 'Required' : 'Bắt buộc'),
+          ),
+          DataColumn(
+            label: Text(language == DocsLanguage.en ? 'Default' : 'Mặc định'),
+          ),
+          DataColumn(
+            label: Text(language == DocsLanguage.en ? 'Note' : 'Ghi chú'),
+          ),
         ],
         rows: [
           for (final prop in props)
@@ -1179,7 +1241,13 @@ class PropsTable extends StatelessWidget {
               cells: [
                 DataCell(Text(prop.name)),
                 DataCell(Text(prop.type)),
-                DataCell(Text(prop.required ? (language == DocsLanguage.en ? 'Yes' : 'Có') : (language == DocsLanguage.en ? 'No' : 'Không'))),
+                DataCell(
+                  Text(
+                    prop.required
+                        ? (language == DocsLanguage.en ? 'Yes' : 'Có')
+                        : (language == DocsLanguage.en ? 'No' : 'Không'),
+                  ),
+                ),
                 DataCell(Text(prop.defaultValue)),
                 DataCell(
                   ConstrainedBox(
