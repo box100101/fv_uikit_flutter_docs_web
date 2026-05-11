@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   fv_uikit_flutter:
-    path: ../ecopos_flutter_app/packages/fv_uikit_flutter
+    path: packages/fv_uikit_flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

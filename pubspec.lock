@@ -78,7 +78,7 @@ packages:
   fv_uikit_flutter:
     dependency: "direct main"
     description:
-      path: "../ecopos_flutter_app/packages/fv_uikit_flutter"
+      path: "packages/fv_uikit_flutter"
       relative: true
     source: path
     version: "0.0.1"

@@ -40,7 +40,7 @@ jobs:
         run: flutter test
 
       - name: Build web
-        run: flutter build web --release --base-href /uikit_docs_web/
+        run: flutter build web --release --base-href /fv_uikit_flutter_docs_web/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

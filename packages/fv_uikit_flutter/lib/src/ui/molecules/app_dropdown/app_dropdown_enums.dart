@@ -1,0 +1,1 @@
+enum AppDropdownSize { xSmall, small, medium, large, xLarge }
