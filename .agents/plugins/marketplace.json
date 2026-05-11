@@ -1,0 +1,20 @@
+{
+  "name": "finviet-local",
+  "interface": {
+    "displayName": "Finviet Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "fv-uikit-sync-agent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/fv-uikit-sync-agent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    }
+  ]
+}

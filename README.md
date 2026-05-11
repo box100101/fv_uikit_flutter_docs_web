@@ -33,6 +33,16 @@ This site depends on the local package:
 packages/fv_uikit_flutter
 ```
 
+## Local Agent
+
+This repo includes a repo-local Codex plugin for one-way UIKit sync:
+
+- Plugin: `FV UIKit Sync Agent`
+- Skill: `fv-uikit-sync`
+- Marketplace: `.agents/plugins/marketplace.json`
+
+Use it when you want Codex to compare the source package at `/Users/tuong.le/Documents/Finviet/ecopos_flutter_app/packages/fv_uikit_flutter` with the repo-local copy in `packages/fv_uikit_flutter`, then integrate relevant changes into this repo without writing back to the source package.
+
 ## Deploy To GitHub Pages
 
 1. Push this repository to GitHub as `fv_uikit_flutter_docs_web`.

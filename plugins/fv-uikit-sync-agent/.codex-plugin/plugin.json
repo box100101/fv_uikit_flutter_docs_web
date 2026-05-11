@@ -1,0 +1,37 @@
+{
+  "name": "fv-uikit-sync-agent",
+  "version": "0.1.0",
+  "description": "Repo-local agent for syncing the latest fv_uikit_flutter package changes into this docs web repo without modifying the source package.",
+  "author": {
+    "name": "Finviet"
+  },
+  "license": "Proprietary",
+  "keywords": [
+    "flutter",
+    "uikit",
+    "docs",
+    "sync",
+    "agent"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "FV UIKit Sync Agent",
+    "shortDescription": "Sync fv_uikit_flutter changes into this docs repo",
+    "longDescription": "Compares the source fv_uikit_flutter package with the local copy inside this repository, applies relevant updates into the docs repo, and keeps docs, examples, and tests aligned without writing back to the source package.",
+    "developerName": "Finviet",
+    "category": "Engineering",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://finviet.com.vn",
+    "privacyPolicyURL": "https://finviet.com.vn",
+    "termsOfServiceURL": "https://finviet.com.vn",
+    "defaultPrompt": [
+      "Sync the latest fv_uikit_flutter changes into this docs repo",
+      "Compare the source package and update local docs integration",
+      "Refresh package copy and docs examples from fv_uikit_flutter"
+    ],
+    "brandColor": "#0C6E72"
+  }
+}
