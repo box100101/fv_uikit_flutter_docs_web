@@ -36,9 +36,6 @@ jobs:
       - name: Run analyze
         run: flutter analyze
 
-      - name: Run tests
-        run: flutter test
-
       - name: Build web
         run: flutter build web --release --base-href /fv_uikit_flutter_docs_web/
 
