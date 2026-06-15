@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final ButtonStyle? style;
   final TextStyle? textStyle;
+  final AppTextSize? textSize;
   final double? textFontSize;
   final Color? textColor;
   final Widget? iconLeft;
@@ -37,6 +38,7 @@ class AppButton extends StatelessWidget {
     this.borderColor,
     this.style,
     this.textStyle,
+    this.textSize,
     this.textFontSize,
     this.textColor,
     this.spacing,
@@ -81,6 +83,10 @@ class AppButton extends StatelessWidget {
       ),
       foregroundColor: WidgetStateProperty.all(foregroundColor),
       side: side != null ? WidgetStateProperty.all(side) : null,
+    ).copyWith(
+      shadowColor: WidgetStateProperty.all(ColorTokens.transparent),
+      surfaceTintColor: WidgetStateProperty.all(ColorTokens.transparent),
+      elevation: WidgetStateProperty.all(0),
     );
   }
 
@@ -250,7 +256,7 @@ class AppButton extends StatelessWidget {
       if (iconLeft != null) _buildIcon(iconLeft, metrics),
       AppText(
         text: text,
-        size: metrics.textVariant,
+        size: textSize ?? metrics.textVariant,
         style: _getResolvedTextStyle(),
       ),
       if (iconRight != null) _buildIcon(iconRight, metrics),

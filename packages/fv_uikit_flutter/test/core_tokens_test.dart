@@ -8,8 +8,10 @@ void main() {
       expect(ColorTokens.text, const Color(0xE0000000));
       expect(ColorTokens.primaryBg, const Color(0xFFEFF6FF));
       expect(ColorTokens.warningBorderHover, const Color(0xFFFDBA74));
-      expect(ColorTokens.primary, ColorTokens.primaryDefault);
-      expect(ColorTokens.error, ColorTokens.dangerDefault);
+      expect(ColorTokens.primary, const Color(0xFF155EEF));
+      expect(ColorTokens.primaryDefault, ColorPaletteTokens.posLightBlue600);
+      expect(ColorTokens.error, ColorTokens.danger);
+      expect(ColorTokens.dangerDefault, ColorPaletteTokens.posRed600);
       expect(ColorTokens.gray900, ColorPaletteTokens.ecoInk1000);
     });
   });
@@ -33,41 +35,40 @@ void main() {
   });
 
   group('RadiusTokens', () {
-    test('maps semantic radius and compatibility aliases', () {
-      expect(RadiusTokens.none, 0.0);
-      expect(RadiusTokens.particle, 2.0);
-      expect(RadiusTokens.defaultRadius, 6.0);
-      expect(RadiusTokens.container, 12.0);
-      expect(RadiusTokens.button, RadiusTokens.container);
-      expect(RadiusTokens.full, 1000.0);
+    test('maps semantic radius values', () {
+      expect(RadiusTokens.radiusXS, 2.0);
+      expect(RadiusTokens.radiusS, 4.0);
+      expect(RadiusTokens.radiusM, 6.0);
+      expect(RadiusTokens.radiusL, 8.0);
+      expect(RadiusTokens.radiusXL, 10.0);
     });
   });
 
   group('TypographyTokens', () {
     test('maps primitives from POS font scale', () {
-      expect(TypographyTokens.fontFamily, 'Manrope');
-      expect(TypographyTokens.fontWeightM, FontWeight.w500);
+      expect(TypographyTokens.fontFamily, 'Inter');
+      expect(TypographyTokens.fontWeightMedium, FontWeight.w500);
       expect(TypographyTokens.paragraphSFontSize, 14.0);
       expect(TypographyTokens.heading1LineHeight, 76.0);
-      expect(TypographyTokens.paragraphLFontSize, TypographyTokens.paragraphXsFontSize);
+      expect(TypographyTokens.paragraphLFontSize, 18.0);
     });
 
     test('builds text styles with pixel line height ratio', () {
-      expect(TextStyleTokens.body.fontFamily, TypographyTokens.fontFamily);
-      expect(TextStyleTokens.body.fontSize, 14.0);
-      expect(TextStyleTokens.body.fontWeight, FontWeight.w400);
+      expect(TextStyleTokens.bodySRegular.fontFamily, TypographyTokens.fontFamily);
+      expect(TextStyleTokens.bodySRegular.fontSize, 14.0);
+      expect(TextStyleTokens.bodySRegular.fontWeight, FontWeight.w400);
       expect(
-        TextStyleTokens.body.letterSpacing,
-        TypographyTokens.letterSpacingWide2,
+        TextStyleTokens.bodySRegular.letterSpacing,
+        TypographyTokens.paragraphSLetterSpacing,
       );
-      expect(TextStyleTokens.body.height, closeTo(20 / 14, 0.000001));
+      expect(TextStyleTokens.bodySRegular.height, closeTo(20 / 14, 0.000001));
 
       expect(
         TextStyleTokens.heading1Bold.letterSpacing,
-        TypographyTokens.letterSpacingTight3,
+        TypographyTokens.heading1LetterSpacing,
       );
-      expect(TextStyleTokens.subTitle.fontWeight, FontWeight.w500);
-      expect(TextStyleTokens.strongHeading.height, closeTo(44 / 36, 0.000001));
+      expect(TextStyleTokens.bodyMMedium.fontWeight, FontWeight.w500);
+      expect(TextStyleTokens.heading3Bold.height, closeTo(44 / 36, 0.000001));
     });
   });
 

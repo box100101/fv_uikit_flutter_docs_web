@@ -415,7 +415,7 @@ void main() {
         );
 
         expect(find.text('Need at least 8 characters'), findsOneWidget);
-        expect(helperText.style?.color, ColorTokens.dangerDefault);
+        expect(helperText.style?.color, ColorTokens.textDescription);
       },
     );
   });

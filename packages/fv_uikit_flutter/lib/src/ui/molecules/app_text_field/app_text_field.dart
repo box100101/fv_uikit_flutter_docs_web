@@ -12,10 +12,12 @@ class AppTextField extends StatefulWidget {
   final String? labelText;
   final String? helperText;
   final String? errorText;
+  final AppTextSize? helperTextSize;
   final AppTextSize? errorTextSize;
   final bool? isPassword;
   final bool? isReadOnly;
   final bool? isDisabled;
+  final bool? showCursor;
   final bool? isError;
   final bool? isSuccess;
   final bool? isWarning;
@@ -48,10 +50,12 @@ class AppTextField extends StatefulWidget {
     this.labelText,
     this.helperText,
     this.errorText,
+    this.helperTextSize,
     this.errorTextSize,
     this.isPassword,
     this.isReadOnly,
     this.isDisabled,
+    this.showCursor,
     this.isError,
     this.isSuccess,
     this.isWarning,

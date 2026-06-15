@@ -67,7 +67,7 @@ class _AppTextFieldLayout extends StatelessWidget {
       child: Text.rich(
         TextSpan(
           text: field.labelText,
-          style: TextStyleTokens.bodySRegular.copyWith(color: palette.label),
+          style: TextStyleTokens.bodySMedium.copyWith(color: palette.label),
           children: [
             if (field.isRequired == true)
               const TextSpan(
@@ -95,11 +95,8 @@ class _AppTextFieldLayout extends StatelessWidget {
       padding: const EdgeInsets.only(top: SpacingTokens.spaceXS),
       child: AppText(
         text: supportingText!,
-        size:
-            state.isShowingErrorText
-                ? field.errorTextSize ?? metrics.size
-                : metrics.size,
-        color: state.resolveSupportingColor(palette),
+        size: state.resolveSupportingSize(metrics, field),
+        color: state.resolveSupportingColor(),
       ),
     );
   }
@@ -164,6 +161,7 @@ class _AppTextFieldLayout extends StatelessWidget {
       autofocus: field.autofocus,
       enabled: !state.isDisabled,
       readOnly: state.isReadOnly,
+      showCursor: field.showCursor,
       obscureText: state.obscureText,
       keyboardType: field.keyboardType,
       textInputAction: field.textInputAction,

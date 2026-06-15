@@ -97,7 +97,7 @@ class AppBottomSheet extends StatelessWidget {
 
   static Future<T?> show<T>({
     required BuildContext context,
-    required AppBottomSheet Function(BuildContext bottomSheetContext) builder,
+    required Widget Function(BuildContext bottomSheetContext) builder,
     bool isDismissible = true,
     bool enableDrag = true,
     bool useRootNavigator = false,
@@ -373,47 +373,51 @@ class AppBottomSheet extends StatelessWidget {
         borderRadius: _resolvedTopBorderRadius,
         boxShadow: BoxShadowTokens.boxShadowTertiary,
       ),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: maxHeight),
-        child: Padding(
-          padding: EdgeInsets.all(metrics.padding),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (_showDragHandle) ...[
-                    _buildDragHandle(metrics),
-                    SizedBox(
-                      height:
-                          dragHandleBottomGap ?? metrics.dragHandleBottomGap,
-                    ),
-                  ],
-                  _buildHeader(context, metrics),
-                  if (_hasDescription) ...[
+      child: _wrapSafeArea(
+        ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: maxHeight),
+          child: Padding(
+            padding: EdgeInsets.all(metrics.padding),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (_showDragHandle) ...[
+                      _buildDragHandle(metrics),
+                      SizedBox(
+                        height:
+                            dragHandleBottomGap ?? metrics.dragHandleBottomGap,
+                      ),
+                    ],
+                    _buildHeader(context, metrics),
+                    if (_hasDescription) ...[
+                      SizedBox(height: metrics.bodyGap),
+                      _buildDescription(metrics),
+                    ],
                     SizedBox(height: metrics.bodyGap),
-                    _buildDescription(metrics),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: ClipRect(
+                        child: SingleChildScrollView(child: child),
+                      ),
+                    ),
+                    if (footer != null) ...[
+                      SizedBox(height: metrics.sectionGap),
+                      footer,
+                    ],
                   ],
-                  SizedBox(height: metrics.bodyGap),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: ClipRect(child: SingleChildScrollView(child: child)),
-                  ),
-                  if (footer != null) ...[
-                    SizedBox(height: metrics.sectionGap),
-                    footer,
-                  ],
-                ],
-              ),
-              if (_showCloseIcon) _buildOverlayCloseButton(context, metrics),
-            ],
+                ),
+                if (_showCloseIcon) _buildOverlayCloseButton(context, metrics),
+              ],
+            ),
           ),
         ),
       ),
     );
 
-    return _wrapSafeArea(sheet);
+    return sheet;
   }
 }

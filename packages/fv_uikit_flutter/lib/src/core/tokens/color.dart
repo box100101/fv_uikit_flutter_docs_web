@@ -15,7 +15,7 @@ abstract class ColorTokens {
   static const Color gray = Color(0xFF9E9E9E);
   static const Color grayLight = Color(0xFFF5F5F5);
   static const Color grayDark = Color(0xFF212121);
-  static const Color primary = Color(0xFF0070CE);
+  static const Color primary = Color(0xFF155EEF);
   static const Color danger = Color(0xFFD93843);
   static const Color warning = Color(0xFFE36301);
   static const Color success = Color(0xFF2E7D32);
@@ -27,12 +27,13 @@ abstract class ColorTokens {
   static const Color textTertiary = Color(0x73000000);
   static const Color textQuaternary = Color(0x40000000);
   static const Color textHeading = text;
-  static const Color textLabel = textSecondary;
+  static const Color textLabel = Color(0xE0000000);
   static const Color textDescription = Color(0x73000000);
   static const Color textPlaceholder = textQuaternary;
   static const Color textDisabled = textQuaternary;
   static const Color textDisabledLight = Color(0x4DFFFFFF);
   static const Color textDefault = Color(0xE0000000);
+  static const Color textLink = primary;
 
   // Neutral backgrounds
   static const Color bgSolid = Color(0xFF000000);

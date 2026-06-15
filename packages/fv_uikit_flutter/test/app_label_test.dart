@@ -64,10 +64,14 @@ void main() {
           matching: find.byType(SizedBox),
         ),
       );
+      final textSpan = label.textSpan! as TextSpan;
+      final contentSpan = textSpan.children!
+          .whereType<TextSpan>()
+          .firstWhere((span) => span.text == 'Label content');
 
       expect(
-        label.textSpan?.style?.fontSize,
-        TextStyleTokens.bodyXLBold.fontSize,
+        contentSpan.style?.fontSize,
+        TextStyleTokens.bodyXLMedium.fontSize,
       );
       expect(iconSlot.width, 26);
       expect(iconSlot.height, 26);

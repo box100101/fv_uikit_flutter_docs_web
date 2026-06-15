@@ -113,14 +113,6 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
     }
   }
 
-  Widget? get _effectivePrefixIcon {
-    if (widget.prefixIcon != null || widget.prefix != null) {
-      return widget.prefixIcon;
-    }
-
-    return const Icon(Icons.lock_outline_rounded);
-  }
-
   Widget? _buildSuffix() {
     if (widget.suffix == null && !widget.showVisibilityToggle) {
       return null;
@@ -179,7 +171,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
       isWarning: widget.isWarning,
       isRequired: widget.isRequired,
       isOptional: widget.isOptional,
-      prefixIcon: _effectivePrefixIcon,
+      prefixIcon: widget.prefixIcon,
       clearTextIcon: widget.clearTextIcon,
       prefix: widget.prefix,
       suffix: _buildSuffix(),

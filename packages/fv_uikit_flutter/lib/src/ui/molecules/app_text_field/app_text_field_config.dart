@@ -61,7 +61,11 @@ class _AppTextFieldStateData {
     );
   }
 
-  Color resolveSupportingColor(_AppTextFieldPalette palette) {
+  Color resolveSupportingColor() {
+    if (!isShowingErrorText) {
+      return ColorTokens.textDescription;
+    }
+
     switch (visualState) {
       case _AppTextFieldVisualState.error:
         return ColorTokens.dangerDefault;
@@ -72,6 +76,17 @@ class _AppTextFieldStateData {
       case _AppTextFieldVisualState.primary:
         return ColorTokens.primaryDefault;
     }
+  }
+
+  AppTextSize resolveSupportingSize(
+    _AppTextFieldMetrics metrics,
+    AppTextField widget,
+  ) {
+    if (!isShowingErrorText) {
+      return widget.helperTextSize ?? metrics.size;
+    }
+
+    return widget.errorTextSize ?? metrics.size;
   }
 
   static bool _shouldShowLabel({

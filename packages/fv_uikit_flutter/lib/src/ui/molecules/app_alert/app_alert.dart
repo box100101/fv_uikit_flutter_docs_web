@@ -30,6 +30,7 @@ class AppAlert extends StatefulWidget {
   final Color? actionColor;
   final double? width;
   final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
   final Duration animationDuration;
   final Curve animationCurve;
 
@@ -55,6 +56,7 @@ class AppAlert extends StatefulWidget {
     this.actionColor,
     this.width,
     this.padding,
+    this.borderRadius,
     this.animationDuration = const Duration(milliseconds: 180),
     this.animationCurve = Curves.easeOut,
   });
@@ -80,6 +82,7 @@ class AppAlert extends StatefulWidget {
     Color? actionColor,
     double width = 340,
     EdgeInsetsGeometry? padding,
+    BorderRadiusGeometry? borderRadius,
     Duration animationDuration = const Duration(milliseconds: 180),
     Curve animationCurve = Curves.easeOut,
     Offset? transitionOffset,
@@ -133,6 +136,7 @@ class AppAlert extends StatefulWidget {
             actionColor: actionColor,
             width: width,
             padding: padding,
+            borderRadius: borderRadius,
             animationDuration: animationDuration,
             animationCurve: animationCurve,
             transitionOffset: transitionOffset,

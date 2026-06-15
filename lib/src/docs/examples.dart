@@ -2740,3 +2740,500 @@ class _ModalReviewExample extends StatelessWidget {
 
 Widget _buildModalReviewExample(BuildContext context) =>
     const _ModalReviewExample();
+
+List<ExampleDocEntry> buildBadgeExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Semantic variants', vi: 'Biến thể semantic'),
+      description: LocalizedText(
+        en: 'Use badge variants to communicate status without custom colors.',
+        vi: 'Dùng variant badge để truyền đạt trạng thái mà không cần màu tuỳ biến.',
+      ),
+      code:
+          "Wrap(\n"
+          "  spacing: 8,\n"
+          "  runSpacing: 8,\n"
+          "  children: const [\n"
+          "    AppBadge(text: 'Neutral', variant: AppBadgeVariant.neutral),\n"
+          "    AppBadge(text: 'Info', variant: AppBadgeVariant.info),\n"
+          "    AppBadge(text: 'Success', variant: AppBadgeVariant.success),\n"
+          "  ],\n"
+          ")",
+      builder: _buildBadgeVariantsExample,
+    ),
+    ExampleDocEntry(
+      title: LocalizedText(en: 'With leading icon', vi: 'Kèm icon bên trái'),
+      description: LocalizedText(
+        en: 'Combine a leading icon with compact badge sizing for dense tables.',
+        vi: 'Kết hợp icon bên trái với size badge nhỏ gọn cho bảng dày thông tin.',
+      ),
+      code:
+          "const AppBadge(\n"
+          "  text: 'Verified account',\n"
+          "  size: AppBadgeSize.small,\n"
+          "  variant: AppBadgeVariant.info,\n"
+          "  leading: Icon(Icons.check_rounded),\n"
+          ")",
+      builder: _buildBadgeIconExample,
+    ),
+  ];
+}
+
+Widget _buildBadgeVariantsExample(BuildContext context) {
+  return const Wrap(
+    spacing: SpacingTokens.spaceS,
+    runSpacing: SpacingTokens.spaceS,
+    children: [
+      AppBadge(text: 'Neutral', variant: AppBadgeVariant.neutral),
+      AppBadge(text: 'Info', variant: AppBadgeVariant.info),
+      AppBadge(text: 'Success', variant: AppBadgeVariant.success),
+      AppBadge(text: 'Warning', variant: AppBadgeVariant.warning),
+      AppBadge(text: 'Danger', variant: AppBadgeVariant.danger),
+    ],
+  );
+}
+
+Widget _buildBadgeIconExample(BuildContext context) {
+  return const AppBadge(
+    text: 'Verified account',
+    size: AppBadgeSize.small,
+    variant: AppBadgeVariant.info,
+    leading: Icon(Icons.check_rounded),
+  );
+}
+
+List<ExampleDocEntry> buildStepperExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Interactive quantity', vi: 'Số lượng tương tác'),
+      description: LocalizedText(
+        en: 'Stepper controls clamp values between min and max bounds.',
+        vi: 'Stepper giới hạn giá trị trong khoảng min và max.',
+      ),
+      code:
+          "AppStepper(\n"
+          "  value: quantity,\n"
+          "  min: 1,\n"
+          "  max: 99,\n"
+          "  onChanged: (next) => setState(() => quantity = next),\n"
+          ")",
+      builder: _buildStepperInteractiveExample,
+    ),
+  ];
+}
+
+class _StepperExample extends StatefulWidget {
+  const _StepperExample();
+
+  @override
+  State<_StepperExample> createState() => _StepperExampleState();
+}
+
+class _StepperExampleState extends State<_StepperExample> {
+  int _quantity = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppStepper(
+      value: _quantity,
+      min: 1,
+      max: 99,
+      onChanged: (next) => setState(() => _quantity = next),
+    );
+  }
+}
+
+Widget _buildStepperInteractiveExample(BuildContext context) =>
+    const _StepperExample();
+
+List<ExampleDocEntry> buildNumpadExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Amount entry', vi: 'Nhập số tiền'),
+      description: LocalizedText(
+        en: 'Bind a controller to capture POS-style numeric input.',
+        vi: 'Gắn controller để nhận input số kiểu POS.',
+      ),
+      code:
+          "AppNumpad(\n"
+          "  controller: controller,\n"
+          "  showDisplayHeader: true,\n"
+          "  headerTitle: 'Amount due',\n"
+          "  onChanged: (value) {},\n"
+          ")",
+      builder: _buildNumpadExample,
+    ),
+  ];
+}
+
+class _NumpadExample extends StatefulWidget {
+  const _NumpadExample();
+
+  @override
+  State<_NumpadExample> createState() => _NumpadExampleState();
+}
+
+class _NumpadExampleState extends State<_NumpadExample> {
+  late final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: AppNumpad(
+        controller: _controller,
+        showDisplayHeader: true,
+        headerTitle: 'Amount due',
+        headerAmount: double.tryParse(_controller.text),
+        currencyUnit: 'VND',
+        onChanged: (_) => setState(() {}),
+      ),
+    );
+  }
+}
+
+Widget _buildNumpadExample(BuildContext context) => const _NumpadExample();
+
+List<ExampleDocEntry> buildSearchFilterBarExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Search with filter', vi: 'Tìm kiếm kèm lọc'),
+      description: LocalizedText(
+        en: 'Debounce search input and highlight an active filter state.',
+        vi: 'Debounce input tìm kiếm và highlight trạng thái filter đang bật.',
+      ),
+      code:
+          "AppSearchFilterBar(\n"
+          "  isFilterActive: filterActive,\n"
+          "  onFilterTap: () => setState(() => filterActive = !filterActive),\n"
+          "  onSearchChanged: (text) {},\n"
+          ")",
+      builder: _buildSearchFilterBarExample,
+    ),
+  ];
+}
+
+class _SearchFilterBarExample extends StatefulWidget {
+  const _SearchFilterBarExample();
+
+  @override
+  State<_SearchFilterBarExample> createState() => _SearchFilterBarExampleState();
+}
+
+class _SearchFilterBarExampleState extends State<_SearchFilterBarExample> {
+  bool _filterActive = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppSearchFilterBar(
+      isFilterActive: _filterActive,
+      onFilterTap: () => setState(() => _filterActive = !_filterActive),
+      onSearchChanged: (_) {},
+    );
+  }
+}
+
+Widget _buildSearchFilterBarExample(BuildContext context) =>
+    const _SearchFilterBarExample();
+
+List<ExampleDocEntry> buildSegmentedControlExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Counts and selection', vi: 'Count và lựa chọn'),
+      description: LocalizedText(
+        en: 'Segment counts render as badges inside each tab item.',
+        vi: 'Count của segment hiển thị dạng badge bên trong từng tab.',
+      ),
+      code:
+          "AppSegmentedControl(\n"
+          "  items: const [\n"
+          "    AppSegmentedControlItem(label: 'Sales', count: 12),\n"
+          "    AppSegmentedControlItem(label: 'Returns', count: 3),\n"
+          "  ],\n"
+          "  selectedIndex: selectedIndex,\n"
+          "  onSelected: (index) => setState(() => selectedIndex = index),\n"
+          ")",
+      builder: _buildSegmentedControlExample,
+    ),
+  ];
+}
+
+class _SegmentedControlExample extends StatefulWidget {
+  const _SegmentedControlExample();
+
+  @override
+  State<_SegmentedControlExample> createState() =>
+      _SegmentedControlExampleState();
+}
+
+class _SegmentedControlExampleState extends State<_SegmentedControlExample> {
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppSegmentedControl(
+      items: const [
+        AppSegmentedControlItem(label: 'Sales', count: 12),
+        AppSegmentedControlItem(label: 'Returns', count: 3),
+      ],
+      selectedIndex: _selectedIndex,
+      onSelected: (index) => setState(() => _selectedIndex = index),
+    );
+  }
+}
+
+Widget _buildSegmentedControlExample(BuildContext context) =>
+    const _SegmentedControlExample();
+
+List<ExampleDocEntry> buildBottomNavigatorExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Primary destinations', vi: 'Destination chính'),
+      description: LocalizedText(
+        en: 'Bottom navigator tracks the active tab and supports icon pairs.',
+        vi: 'Bottom navigator theo dõi tab active và hỗ trợ cặp icon.',
+      ),
+      code:
+          "AppBottomNavigator(\n"
+          "  items: items,\n"
+          "  currentIndex: currentIndex,\n"
+          "  onTap: (index) => setState(() => currentIndex = index),\n"
+          ")",
+      builder: _buildBottomNavigatorExample,
+    ),
+  ];
+}
+
+class _BottomNavigatorExample extends StatefulWidget {
+  const _BottomNavigatorExample();
+
+  @override
+  State<_BottomNavigatorExample> createState() => _BottomNavigatorExampleState();
+}
+
+class _BottomNavigatorExampleState extends State<_BottomNavigatorExample> {
+  int _currentIndex = 0;
+
+  static const _items = [
+    AppBottomNavigatorItem(
+      label: 'Home',
+      icon: Icon(Icons.home_outlined),
+      activeIcon: Icon(Icons.home),
+    ),
+    AppBottomNavigatorItem(
+      label: 'Orders',
+      icon: Icon(Icons.receipt_long_outlined),
+      activeIcon: Icon(Icons.receipt_long),
+    ),
+    AppBottomNavigatorItem(
+      label: 'Settings',
+      icon: Icon(Icons.settings_outlined),
+      activeIcon: Icon(Icons.settings),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppText(
+          text: 'Active tab: ${_items[_currentIndex].label}',
+          size: AppTextSize.bodyMRegular,
+        ),
+        const SizedBox(height: SpacingTokens.spaceM),
+        AppBottomNavigator(
+          items: _items,
+          currentIndex: _currentIndex,
+          onTap: (index) => setState(() => _currentIndex = index),
+        ),
+      ],
+    );
+  }
+}
+
+Widget _buildBottomNavigatorExample(BuildContext context) =>
+    const _BottomNavigatorExample();
+
+List<ExampleDocEntry> buildSummaryRowExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Checkout summary', vi: 'Tóm tắt thanh toán'),
+      description: LocalizedText(
+        en: 'Stack summary rows to build receipt-style totals.',
+        vi: 'Xếp các summary row để dựng phần tổng kiểu hóa đơn.',
+      ),
+      code:
+          "Column(\n"
+          "  children: const [\n"
+          "    AppSummaryRow(label: 'Subtotal', value: '480,000 đ'),\n"
+          "    AppSummaryRow(label: 'Discount', value: '-20,000 đ'),\n"
+          "    AppSummaryRow(label: 'Total', value: '460,000 đ', isBold: true),\n"
+          "  ],\n"
+          ")",
+      builder: _buildSummaryRowExample,
+    ),
+  ];
+}
+
+Widget _buildSummaryRowExample(BuildContext context) {
+  return const Column(
+    children: [
+      AppSummaryRow(label: 'Subtotal', value: '480,000 đ'),
+      AppSummaryRow(label: 'Discount', value: '-20,000 đ'),
+      AppSummaryRow(label: 'Total', value: '460,000 đ', isBold: true),
+    ],
+  );
+}
+
+List<ExampleDocEntry> buildTableExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Product inventory', vi: 'Tồn kho sản phẩm'),
+      description: LocalizedText(
+        en: 'Sticky headers and selectable rows for compact admin tables.',
+        vi: 'Header cố định và dòng chọn được cho bảng admin gọn.',
+      ),
+      code:
+          "AppTable(\n"
+          "  columnWidths: {0: FixedColumnWidth(120), 1: FlexColumnWidth()},\n"
+          "  headerCells: [Text('SKU'), Text('Qty')],\n"
+          "  rows: [...],\n"
+          ")",
+      builder: _buildTableExample,
+    ),
+  ];
+}
+
+Widget _buildTableExample(BuildContext context) {
+  return AppTable(
+    maxHeight: 180,
+    columnWidths: const {
+      0: FixedColumnWidth(120),
+      1: FlexColumnWidth(),
+    },
+    headerCells: const [
+      AppText(text: 'SKU', size: AppTextSize.bodySBold),
+      AppText(text: 'Qty', size: AppTextSize.bodySBold),
+    ],
+    rows: const [
+      AppTableRow(cells: [
+        AppText(text: 'FV-001', size: AppTextSize.bodySRegular),
+        AppText(text: '12', size: AppTextSize.bodySRegular),
+      ]),
+      AppTableRow(
+        isSelected: true,
+        cells: [
+          AppText(text: 'FV-002', size: AppTextSize.bodySRegular),
+          AppText(text: '4', size: AppTextSize.bodySRegular),
+        ],
+      ),
+      AppTableRow(cells: [
+        AppText(text: 'FV-003', size: AppTextSize.bodySRegular),
+        AppText(text: '28', size: AppTextSize.bodySRegular),
+      ]),
+    ],
+  );
+}
+
+List<ExampleDocEntry> buildTablePaginationBarExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Paged table footer', vi: 'Footer bảng phân trang'),
+      description: LocalizedText(
+        en: 'Show record ranges and page controls below a data table.',
+        vi: 'Hiển thị khoảng bản ghi và điều khiển trang dưới bảng dữ liệu.',
+      ),
+      code:
+          "AppTablePaginationBar(\n"
+          "  currentPage: page,\n"
+          "  totalPages: 10,\n"
+          "  total: 100,\n"
+          "  startRecord: 1,\n"
+          "  endRecord: 10,\n"
+          "  pageSize: 10,\n"
+          "  onGoToPage: (next) {},\n"
+          "  onChangePageSize: (size) {},\n"
+          ")",
+      builder: _buildTablePaginationBarExample,
+    ),
+  ];
+}
+
+class _TablePaginationBarExample extends StatefulWidget {
+  const _TablePaginationBarExample();
+
+  @override
+  State<_TablePaginationBarExample> createState() =>
+      _TablePaginationBarExampleState();
+}
+
+class _TablePaginationBarExampleState extends State<_TablePaginationBarExample> {
+  int _page = 1;
+  int _pageSize = 10;
+
+  @override
+  Widget build(BuildContext context) {
+    final start = ((_page - 1) * _pageSize) + 1;
+    final end = (_page * _pageSize).clamp(0, 100);
+
+    return AppTablePaginationBar(
+      currentPage: _page,
+      totalPages: 10,
+      total: 100,
+      startRecord: start,
+      endRecord: end,
+      pageSize: _pageSize,
+      onGoToPage: (next) => setState(() => _page = next),
+      onChangePageSize: (size) => setState(() {
+        _pageSize = size;
+        _page = 1;
+      }),
+    );
+  }
+}
+
+Widget _buildTablePaginationBarExample(BuildContext context) =>
+    const _TablePaginationBarExample();
+
+List<ExampleDocEntry> buildListExamples() {
+  return const [
+    ExampleDocEntry(
+      title: LocalizedText(en: 'Static list with tiles', vi: 'List tĩnh với tile'),
+      description: LocalizedText(
+        en: 'Use AppStaticList for small fixed datasets and AppListTile for consistent rows.',
+        vi: 'Dùng AppStaticList cho dataset nhỏ cố định và AppListTile cho dòng nhất quán.',
+      ),
+      code:
+          "AppStaticList<String>(\n"
+          "  items: const ['Draft', 'Published', 'Archived'],\n"
+          "  itemBuilder: (ctx, item, i) => AppListTile(title: item),\n"
+          ")",
+      builder: _buildStaticListExample,
+    ),
+  ];
+}
+
+Widget _buildStaticListExample(BuildContext context) {
+  return SizedBox(
+    height: 220,
+    child: AppStaticList<String>(
+      items: const ['Draft orders', 'Published menus', 'Archived shifts'],
+      separatorStyle: AppListSeparatorStyle.divider,
+      itemBuilder: (context, item, index) {
+        return AppListTile(
+          title: item,
+          subtitle: 'Updated today',
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {},
+        );
+      },
+    ),
+  );
+}

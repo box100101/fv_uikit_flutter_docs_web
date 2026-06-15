@@ -1,17 +1,29 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fv_uikit_flutter/fv_uikit_flutter.dart';
 
+enum AppOtpFieldType { segmented, input }
+
 class AppOtpField extends StatefulWidget {
   final int length;
+  final AppOtpFieldType type;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onCompleted;
-  final bool autofocus;
+  final bool? autofocus;
   final bool isDisabled;
+  final String? hintText;
+  final String? labelText;
+  final String? helperText;
+  final String? errorText;
+  final AppTextSize? errorTextSize;
+  final AppTextFieldVariant textFieldVariant;
+  final AppTextFieldSize textFieldSize;
+  final FloatingLabelBehavior? floatingLabelBehavior;
   final double cellWidth;
   final double cellHeight;
   final double cellSpacing;
@@ -20,12 +32,21 @@ class AppOtpField extends StatefulWidget {
   const AppOtpField({
     super.key,
     this.length = 6,
+    this.type = AppOtpFieldType.segmented,
     this.controller,
     this.focusNode,
     this.onChanged,
     this.onCompleted,
-    this.autofocus = false,
+    this.autofocus,
     this.isDisabled = false,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    this.errorText,
+    this.errorTextSize,
+    this.textFieldVariant = AppTextFieldVariant.primary,
+    this.textFieldSize = AppTextFieldSize.medium,
+    this.floatingLabelBehavior = FloatingLabelBehavior.always,
     this.cellWidth = 48,
     this.cellHeight = 56,
     this.cellSpacing = SpacingTokens.spaceM,
@@ -47,6 +68,9 @@ class _AppOtpFieldState extends State<AppOtpField> {
 
   FocusNode get _focusNode =>
       widget.focusNode ?? (_internalFocusNode ??= FocusNode());
+
+  bool get _effectiveAutofocus =>
+      widget.autofocus ?? (widget.type == AppOtpFieldType.segmented);
 
   @override
   void initState() {
@@ -74,6 +98,26 @@ class _AppOtpFieldState extends State<AppOtpField> {
   Widget build(BuildContext context) {
     final controller = _controller;
     final focusNode = _focusNode;
+
+    if (widget.type == AppOtpFieldType.input) {
+      return AppTextField(
+        variant: widget.textFieldVariant,
+        size: widget.textFieldSize,
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        helperText: widget.helperText,
+        errorText: widget.errorText,
+        errorTextSize: widget.errorTextSize,
+        floatingLabelBehavior: widget.floatingLabelBehavior,
+        controller: controller,
+        focusNode: focusNode,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        autofocus: _effectiveAutofocus,
+        maxLength: widget.length,
+        isDisabled: widget.isDisabled,
+      );
+    }
 
     return AnimatedBuilder(
       animation: Listenable.merge([controller, focusNode]),
@@ -107,6 +151,7 @@ class _AppOtpFieldState extends State<AppOtpField> {
                           isFocused: index == activeIndex,
                           isFilled: index < value.length,
                           isDisabled: widget.isDisabled,
+                          caretKey: ValueKey('app-otp-field-caret-$index'),
                           width: resolvedCellWidth,
                           height: widget.cellHeight,
                           borderRadius: widget.borderRadius!,
@@ -142,7 +187,7 @@ class _AppOtpFieldState extends State<AppOtpField> {
           child: TextField(
             controller: _controller,
             focusNode: _focusNode,
-            autofocus: widget.autofocus,
+            autofocus: _effectiveAutofocus,
             enabled: !widget.isDisabled,
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.done,
@@ -281,6 +326,7 @@ class _OtpDigitCell extends StatelessWidget {
   final bool isFocused;
   final bool isFilled;
   final bool isDisabled;
+  final Key? caretKey;
   final double width;
   final double height;
   final BorderRadiusGeometry borderRadius;
@@ -291,6 +337,7 @@ class _OtpDigitCell extends StatelessWidget {
     required this.isFocused,
     required this.isFilled,
     required this.isDisabled,
+    this.caretKey,
     required this.width,
     required this.height,
     required this.borderRadius,
@@ -324,11 +371,99 @@ class _OtpDigitCell extends StatelessWidget {
         borderRadius: borderRadius,
         border: Border.all(color: borderColor),
       ),
-      child: AppText(
+      child: _OtpCellContent(
+        value: value,
+        textColor: textColor,
+        showCaret: isFocused && !isDisabled,
+        caretKey: caretKey,
+      ),
+    );
+  }
+}
+
+class _OtpCellContent extends StatelessWidget {
+  final String value;
+  final Color textColor;
+  final bool showCaret;
+  final Key? caretKey;
+
+  const _OtpCellContent({
+    required this.value,
+    required this.textColor,
+    required this.showCaret,
+    this.caretKey,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!showCaret) {
+      return AppText(
         text: value,
         size: AppTextSize.heading4Medium,
         color: textColor,
         textAlign: TextAlign.center,
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (value.isNotEmpty)
+          AppText(
+            text: value,
+            size: AppTextSize.heading4Medium,
+            color: textColor,
+            textAlign: TextAlign.center,
+          ),
+        if (value.isNotEmpty) const SizedBox(width: 2),
+        _OtpCaret(key: caretKey),
+      ],
+    );
+  }
+}
+
+class _OtpCaret extends StatefulWidget {
+  const _OtpCaret({super.key});
+
+  @override
+  State<_OtpCaret> createState() => _OtpCaretState();
+}
+
+class _OtpCaretState extends State<_OtpCaret> {
+  Timer? _blinkTimer;
+  bool _isVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _blinkTimer = Timer.periodic(const Duration(milliseconds: 450), (_) {
+      if (!mounted) return;
+
+      setState(() {
+        _isVisible = !_isVisible;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _blinkTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _isVisible ? 1 : 0,
+      duration: const Duration(milliseconds: 120),
+      child: Container(
+        width: 2,
+        height: 24,
+        decoration: BoxDecoration(
+          color: ColorTokens.primaryDefault,
+          borderRadius: BorderRadius.circular(999),
+        ),
       ),
     );
   }

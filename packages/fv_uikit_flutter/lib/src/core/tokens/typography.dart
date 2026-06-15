@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class TypographyTokens {
-  static const String fontFamily = 'Manrope';
+  static const String fontFamily = 'Inter';
 
   static const FontWeight fontWeightRegular = FontWeight.w400;
   static const FontWeight fontWeightMedium = FontWeight.w500;

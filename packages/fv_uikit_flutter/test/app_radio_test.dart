@@ -58,8 +58,8 @@ void main() {
       final controlSize = tester.getSize(find.byType(AnimatedContainer).first);
       final label = tester.widget<Text>(find.text('Radiobox label'));
 
-      expect(controlSize.width, 8);
-      expect(controlSize.height, 8);
+      expect(controlSize.width, 12);
+      expect(controlSize.height, 12);
       expect(label.style?.fontSize, TextStyleTokens.bodyXSRegular.fontSize);
     });
 
@@ -79,8 +79,8 @@ void main() {
       final controlSize = tester.getSize(find.byType(AnimatedContainer).first);
       final label = tester.widget<Text>(find.text('Radiobox label'));
 
-      expect(controlSize.width, 20);
-      expect(controlSize.height, 20);
+      expect(controlSize.width, 24);
+      expect(controlSize.height, 24);
       expect(label.style?.fontSize, TextStyleTokens.bodyXLRegular.fontSize);
     });
 
@@ -142,7 +142,17 @@ void main() {
       );
 
       final boxedContainer = tester.widget<Container>(
-        find.byType(Container).last,
+        find
+            .ancestor(
+              of: find.text('Boxed label'),
+              matching: find.byWidgetPredicate(
+                (widget) =>
+                    widget is Container &&
+                    widget.decoration is BoxDecoration &&
+                    (widget.decoration! as BoxDecoration).border != null,
+              ),
+            )
+            .first,
       );
       final decoration = boxedContainer.decoration! as BoxDecoration;
 
