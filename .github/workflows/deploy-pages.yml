@@ -18,6 +18,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: ghcr.io/cirruslabs/flutter:3.41.5
     permissions:
       contents: read
       pages: write
@@ -25,22 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Configure swap space
-        run: |
-          sudo swapoff -a
-          sudo fallocate -l 8G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.41.5
-          cache: false
 
       - name: Enable web
         run: flutter config --enable-web
@@ -52,7 +37,7 @@ jobs:
         run: flutter analyze --no-fatal-infos
 
       - name: Build web
-        run: flutter build web --release --base-href /fv_uikit_flutter_docs_web/ -O1
+        run: flutter build web --release --base-href /fv_uikit_flutter_docs_web/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
