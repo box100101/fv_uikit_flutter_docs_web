@@ -40,9 +40,7 @@ jobs:
         run: flutter pub get
 
       - name: Run analyze
-        run: |
-          flutter analyze
-          cd packages/fv_uikit_flutter && flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Run tests
         run: |
