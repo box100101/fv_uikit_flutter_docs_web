@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:fv_uikit_flutter/fv_uikit_flutter.dart';
-import 'package:fv_uikit_flutter/src/ui/molecules/app_dropdown/app_dropdown_Trigger.dart';
+import 'package:fv_uikit_flutter/src/ui/molecules/app_dropdown/app_dropdown_trigger.dart';
 import 'package:fv_uikit_flutter/src/ui/molecules/app_dropdown/app_dropdown_config.dart';
 import 'package:fv_uikit_flutter/src/ui/molecules/app_dropdown/app_dropdown_menu_body.dart';
 import 'package:fv_uikit_flutter/src/ui/molecules/app_dropdown/app_dropdown_menu_item.dart';
