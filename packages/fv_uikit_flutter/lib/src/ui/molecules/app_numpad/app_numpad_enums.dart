@@ -1,0 +1,1 @@
+enum AppNumpadSize { medium, large }

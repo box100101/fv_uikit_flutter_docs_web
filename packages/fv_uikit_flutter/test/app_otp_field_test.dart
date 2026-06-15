@@ -26,7 +26,9 @@ void main() {
 
       addTearDown(focusNode.dispose);
 
-      await tester.pumpWidget(buildApp(AppOtpField(focusNode: focusNode)));
+      await tester.pumpWidget(
+        buildApp(AppOtpField(focusNode: focusNode, autofocus: false)),
+      );
 
       expect(focusNode.hasFocus, isFalse);
 

@@ -224,6 +224,8 @@ class _AppAlertState extends State<AppAlert> {
         padding: widget.padding ?? metrics.padding,
         decoration: BoxDecoration(
           color: widget.backgroundColor ?? _defaultBackgroundColor,
+          borderRadius:
+              widget.borderRadius ?? RadiusTokens.radiusXsBorderRadius,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

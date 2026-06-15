@@ -40,3 +40,8 @@ enum AppDividerVariant { defaultValue, info, warning, danger, success }
 enum AppLabelSize { xSmall, small, medium, large, xLarge }
 
 enum AppLabelRequiredPosition { leading, trailing, both }
+
+// AppBadge
+enum AppBadgeVariant { neutral, info, success, warning, danger }
+
+enum AppBadgeSize { xSmall, small, medium, large, xLarge }

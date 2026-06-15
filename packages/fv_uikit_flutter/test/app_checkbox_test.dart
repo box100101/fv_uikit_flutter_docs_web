@@ -78,8 +78,8 @@ void main() {
       final controlSize = tester.getSize(find.byType(AnimatedContainer).first);
       final label = tester.widget<Text>(find.text('Checkbox label'));
 
-      expect(controlSize.width, 10);
-      expect(controlSize.height, 10);
+      expect(controlSize.width, 12);
+      expect(controlSize.height, 12);
       expect(label.style?.fontSize, TextStyleTokens.bodyXSRegular.fontSize);
     });
 

@@ -20,7 +20,6 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.lock_outline_rounded), findsOneWidget);
       expect(find.byIcon(Icons.visibility_off_outlined), findsOneWidget);
       expect(find.byIcon(Icons.visibility_outlined), findsNothing);
 

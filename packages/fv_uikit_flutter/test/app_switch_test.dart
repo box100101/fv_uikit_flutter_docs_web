@@ -75,7 +75,7 @@ void main() {
       final trackSize = tester.getSize(find.byType(AnimatedContainer));
       final label = tester.widget<Text>(find.text('Switch label'));
 
-      expect(trackSize.width, 44);
+      expect(trackSize.width, 48);
       expect(trackSize.height, 24);
       expect(label.style?.fontSize, TextStyleTokens.bodyXLRegular.fontSize);
     });

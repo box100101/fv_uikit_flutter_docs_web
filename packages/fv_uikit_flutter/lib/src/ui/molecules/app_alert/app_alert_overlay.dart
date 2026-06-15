@@ -22,6 +22,7 @@ class _AppAlertOverlay extends StatefulWidget {
   final Color? actionColor;
   final double width;
   final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
   final Duration animationDuration;
   final Curve animationCurve;
   final Offset? transitionOffset;
@@ -57,6 +58,7 @@ class _AppAlertOverlay extends StatefulWidget {
     required this.actionColor,
     required this.width,
     required this.padding,
+    required this.borderRadius,
     required this.animationDuration,
     required this.animationCurve,
     required this.transitionOffset,
@@ -205,6 +207,7 @@ class _AppAlertOverlayState extends State<_AppAlertOverlay> {
         actionColor: widget.actionColor,
         width: widget.width,
         padding: widget.padding,
+        borderRadius: widget.borderRadius,
         animationDuration: Duration.zero,
       ),
     );
