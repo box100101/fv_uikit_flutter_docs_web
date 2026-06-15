@@ -17,9 +17,9 @@ class AppRichTextSpan extends TextSpan {
     double? letterSpacing,
     double? wordSpacing,
     double? height,
-    GestureRecognizer? recognizer,
-    String? semanticsLabel,
-    Locale? locale,
+    super.recognizer,
+    super.semanticsLabel,
+    super.locale,
   }) : super(
          style: buildAppTextStyle(
            size: size,
@@ -31,9 +31,6 @@ class AppRichTextSpan extends TextSpan {
            wordSpacing: wordSpacing,
            height: height,
          ).merge(style),
-         recognizer: recognizer,
-         semanticsLabel: semanticsLabel,
-         locale: locale,
        );
 
   factory AppRichTextSpan.text(

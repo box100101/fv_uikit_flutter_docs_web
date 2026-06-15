@@ -42,7 +42,7 @@ jobs:
       - name: Run analyze
         run: |
           flutter analyze
-          flutter analyze --no-fatal-infos packages/fv_uikit_flutter
+          cd packages/fv_uikit_flutter && flutter analyze
 
       - name: Run tests
         run: |

@@ -62,7 +62,7 @@ class AppBottomSheetSelect<T> extends StatefulWidget {
     this.errorText,
     required this.items,
     required this.value,
-    required ValueChanged<T?>? onChanged,
+    required this.onChanged,
     required this.hintText,
     required this.itemAsString,
     this.itemDescriptionAsString,
@@ -98,7 +98,6 @@ class AppBottomSheetSelect<T> extends StatefulWidget {
     this.cancelButtonText = 'Cancel',
     this.applyButtonText = 'Apply',
   }) : values = const [],
-       onChanged = onChanged,
        onChangedMulti = null,
        kind = _AppBottomSheetSelectKind.single;
 
